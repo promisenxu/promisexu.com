@@ -1,0 +1,52 @@
+---
+import "@pagefind/default-ui/css/ui.css";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buildSeo } from "@/lib/seo";
+
+const seo = buildSeo({
+  title: "Search",
+  description: "Search writing and projects by Promise Xu.",
+  path: "/search/"
+});
+---
+
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical}>
+  <main>
+    <section class="page-header">
+      <h1>Search</h1>
+      <p>Search writing and projects. Results include language and category context where available.</p>
+    </section>
+    <div id="search"></div>
+  </main>
+
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", () => {
+      const pagefind = document.createElement("script");
+      pagefind.src = "/pagefind/pagefind-ui.js";
+      pagefind.onload = () => {
+        new window.PagefindUI({ element: "#search", showSubResults: true });
+      };
+      document.head.appendChild(pagefind);
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 56px 0 24px;
+  }
+
+  .page-header h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .page-header p {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+</style>

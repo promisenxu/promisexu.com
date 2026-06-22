@@ -1,0 +1,110 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import WritingCard from "@/components/WritingCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getFeaturedWritings, getProjects, getPublishedWritings } from "@/lib/content";
+import { buildSeo, personJsonLd, websiteJsonLd } from "@/lib/seo";
+
+const featured = await getFeaturedWritings();
+const latest = (await getPublishedWritings()).slice(0, 5);
+const projects = (await getProjects()).slice(0, 3);
+const seo = buildSeo({
+  title: "Promise Xu",
+  description: "A personal publication for writing on growth, marketing, business, culture, art, film, and the web.",
+  path: "/"
+});
+---
+
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[personJsonLd(), websiteJsonLd()]}>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Personal publication</p>
+      <h1>Writing, projects, and selected work by Promise Xu.</h1>
+      <p>Essays and notes across growth, marketing, business, culture, art, film, and the web.</p>
+    </section>
+
+    <section class="home-section" aria-labelledby="featured-heading">
+      <div class="section-heading">
+        <h2 id="featured-heading">Featured</h2>
+        <a href="/writing/">All writing</a>
+      </div>
+      {featured.map((entry) => <WritingCard entry={entry} />)}
+    </section>
+
+    <section class="home-section" aria-labelledby="latest-heading">
+      <div class="section-heading">
+        <h2 id="latest-heading">Latest</h2>
+        <a href="/search/">Search</a>
+      </div>
+      {latest.map((entry) => <WritingCard entry={entry} />)}
+    </section>
+
+    <section class="home-section" aria-labelledby="projects-heading">
+      <div class="section-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <a href="/projects/">View projects</a>
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero {
+    max-width: 780px;
+    padding: 72px 0 48px;
+  }
+
+  .hero h1 {
+    margin: 0 0 20px;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.98;
+  }
+
+  .hero p {
+    color: var(--color-muted);
+    font-size: 1.2rem;
+    line-height: 1.55;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    color: var(--color-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .home-section {
+    margin-top: 48px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+  }
+
+  .section-heading a {
+    color: var(--color-muted);
+    font-weight: 700;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+</style>

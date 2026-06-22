@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buildSeo, personJsonLd } from "@/lib/seo";
+
+const seo = buildSeo({
+  title: "About",
+  description: "About Promise Xu, his writing, projects, and selected work.",
+  path: "/about/"
+});
+---
+
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[personJsonLd()]}>
+  <main class="about">
+    <section class="prose">
+      <h1>About Promise Xu</h1>
+      <p>Promise Xu writes about growth, marketing, business, culture, art, film, and the web.</p>
+      <p>He also builds and studies products, with selected work including Valhalla, FriendUp, and Klido.</p>
+      <p><a href="/writing/">Read the writing</a> or <a href="/projects/">view selected projects</a>.</p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .about {
+    padding: 56px 0;
+  }
+</style>

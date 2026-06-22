@@ -363,6 +363,8 @@ git commit -m "docs: consolidate launch plan and learning guide"
 
 ## Task 1: Scaffold Astro Foundation
 
+Status: Complete in commits `0069a66` and `b974c7e60c95f9e519c98ac36387f7411391192c`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `package.json`
 - Create: `astro.config.mjs`

@@ -547,6 +547,8 @@ git commit -m "feat: scaffold astro foundation"
 
 ## Task 2: Define Content Collections And Seed Content
 
+Status: Complete in commit `f21c1dd`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `src/content/config.ts`
 - Create: `src/content/writings/en/hello-publication.mdx`

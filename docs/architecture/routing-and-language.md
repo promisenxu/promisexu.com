@@ -14,6 +14,15 @@
 /search/                  Pagefind search
 ```
 
+Generated utility routes:
+
+```txt
+/rss.xml                  writing RSS feed
+/robots.txt               crawler rules and sitemap pointer
+/sitemap-index.xml        generated sitemap index
+/sitemap-0.xml            generated sitemap entries
+```
+
 ## Rules
 
 - `/writing/` is the canonical archive across languages.

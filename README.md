@@ -62,4 +62,11 @@ The first public launch is a publication core with light proof:
 
 ## Development
 
-Install and run commands will be added when the Astro app is scaffolded.
+```bash
+npm run dev
+npm run check
+npm run build
+npm run preview
+```
+
+`npm run build` runs the Astro static build and then Pagefind indexing against `dist`.

@@ -1131,6 +1131,8 @@ git commit -m "feat: add layouts and navigation"
 
 ## Task 5: Build Writing Routes And Cards
 
+Status: Complete in commit `3647061`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `src/components/WritingCard.astro`
 - Create: `src/components/ArchiveControls.astro`

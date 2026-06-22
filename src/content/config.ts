@@ -5,7 +5,13 @@ import { writingCategories } from "@/lib/site";
 const writing = defineCollection({
   loader: glob({
     pattern: "**/*.{md,mdx}",
-    base: "./src/content/writings"
+    base: "./src/content/writings",
+    generateId: ({ entry, data }) => {
+      const languageDirectory = entry.split("/")[0];
+      const slug = typeof data.slug === "string" ? data.slug : entry.replace(/\.(md|mdx)$/, "");
+
+      return `${languageDirectory}/${slug}`;
+    }
   }),
   schema: z.object({
     title: z.string(),

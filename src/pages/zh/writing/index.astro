@@ -1,0 +1,47 @@
+---
+import ArchiveControls from "@/components/ArchiveControls.astro";
+import WritingCard from "@/components/WritingCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getWritingsByLanguage } from "@/lib/content";
+import { buildSeo, websiteJsonLd } from "@/lib/seo";
+
+const writings = await getWritingsByLanguage("zh");
+const seo = buildSeo({
+  title: "中文写作",
+  description: "Promise Xu 的中文文章、评论和笔记。",
+  path: "/zh/writing/"
+});
+---
+
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} lang="zh" jsonLd={[websiteJsonLd()]}>
+  <main>
+    <section class="page-header">
+      <h1>中文写作</h1>
+      <p>中文文章、评论和笔记。</p>
+    </section>
+    <ArchiveControls selectedLanguage="zh" />
+    <section aria-label="Chinese writing">
+      {writings.map((entry) => <WritingCard entry={entry} />)}
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 56px 0 8px;
+  }
+
+  .page-header h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .page-header p {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+</style>

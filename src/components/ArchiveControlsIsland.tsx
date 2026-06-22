@@ -38,12 +38,6 @@ export default function ArchiveControlsIsland({ items, categories, selectedCateg
   );
 
   useEffect(() => {
-    const categoryParam = new URLSearchParams(window.location.search).get("category");
-
-    if (categoryParam && categoryFilters.includes(categoryParam)) {
-      setCategory(categoryParam);
-    }
-
     setIsHydrated(true);
   }, [categoryFilters]);
 

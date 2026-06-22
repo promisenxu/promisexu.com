@@ -15,6 +15,16 @@ export const writingCategories = [
 
 export type WritingCategory = (typeof writingCategories)[number];
 
+export const writingCategorySlugs: Record<WritingCategory, string> = {
+  "Growth, Marketing & Business": "growth-marketing-business",
+  "Culture, Art & Film": "culture-art-film",
+  Misc: "misc"
+};
+
+export function getWritingCategoryUrl(category: WritingCategory) {
+  return `/writing/category/${writingCategorySlugs[category]}/`;
+}
+
 export const languages = {
   all: "All",
   en: "English",

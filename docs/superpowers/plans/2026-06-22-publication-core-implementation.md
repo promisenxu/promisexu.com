@@ -2026,3 +2026,10 @@ If verification fixes changed code, include those files in the same commit only 
 - Search is present through Pagefind.
 - RSS, sitemap, robots, canonical metadata, Open Graph metadata, and article JSON-LD are present.
 - Comments, D1, Turnstile, moderation admin, Keystatic, full CV, full UI localization, and full case studies are not implemented in this launch slice.
+
+## Final Review Fix: Static Category Archives
+
+- [x] Replace query-param-only writing category filtering with static `/writing/category/[category]/` archive routes.
+- [x] Keep `/writing/` as the canonical all-writing archive.
+- [x] Update category nav/control links to static category URLs.
+- [x] Verify `npm run check`, `npm run build`, generated category HTML, and static category-page content.

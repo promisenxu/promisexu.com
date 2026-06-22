@@ -3,11 +3,27 @@ import ArchiveControls from "@/components/ArchiveControls.astro";
 import ArchiveControlsIsland from "@/components/ArchiveControlsIsland";
 import WritingCard from "@/components/WritingCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getPublishedWritings, getWritingUrl } from "@/lib/content";
+import { getWritingsByCategory, getWritingUrl } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
-import { writingCategories } from "@/lib/site";
+import {
+  writingCategories,
+  writingCategorySlugs,
+  type WritingCategory
+} from "@/lib/site";
 
-const writings = await getPublishedWritings();
+type Props = {
+  category: WritingCategory;
+};
+
+export function getStaticPaths() {
+  return writingCategories.map((category) => ({
+    params: { category: writingCategorySlugs[category] },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const writings = await getWritingsByCategory(category);
 const archiveItems = writings.map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
@@ -17,31 +33,33 @@ const archiveItems = writings.map((entry) => ({
   date: entry.data.date.toISOString().slice(0, 10)
 }));
 const seo = buildSeo({
-  title: "Writing",
-  description: "All writing by Promise Xu across English and Chinese.",
-  path: "/writing/"
+  title: `${category} Writing`,
+  description: `Writing filed under ${category} by Promise Xu.`,
+  path: `/writing/category/${writingCategorySlugs[category]}/`
 });
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[websiteJsonLd()]}>
   <main>
     <section class="page-header">
-      <h1>Writing</h1>
-      <p>Essays, criticism, notes, and published work across English and Chinese.</p>
+      <p class="eyebrow">Category archive</p>
+      <h1>{category}</h1>
+      <p>Writing filed under {category}.</p>
     </section>
-    <ArchiveControls selectedLanguage="all" />
-    <section aria-label="All writing">
+    <ArchiveControls selectedLanguage="all" selectedCategory={category} />
+    <section aria-label={`${category} writing`}>
       {writings.map((entry) => <WritingCard entry={entry} />)}
     </section>
     <section class="interactive-archive" aria-labelledby="interactive-archive-heading">
       <div class="section-heading">
         <h2 id="interactive-archive-heading">Interactive archive</h2>
-        <p>Filter the same archive by language and category without leaving this page.</p>
+        <p>Filter this category archive by language without leaving this page.</p>
       </div>
       <ArchiveControlsIsland
         client:idle
         items={archiveItems}
         categories={writingCategories}
+        selectedCategory={category}
       />
     </section>
   </main>
@@ -52,13 +70,22 @@ const seo = buildSeo({
     padding: 56px 0 8px;
   }
 
+  .eyebrow {
+    margin: 0 0 10px;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   .page-header h1 {
     margin: 0 0 12px;
     font-size: clamp(2.5rem, 7vw, 5rem);
     line-height: 0.95;
   }
 
-  .page-header p {
+  .page-header p:not(.eyebrow) {
     max-width: 62ch;
     margin: 0;
     color: var(--color-muted);

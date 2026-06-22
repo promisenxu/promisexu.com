@@ -5,6 +5,7 @@
 ```txt
 /                         publication-style homepage
 /writing/                 canonical all-writing archive
+/writing/category/[category]/ static category archive for approved category slugs
 /en/writing/              English-only archive
 /en/writing/[slug]/       English article
 /zh/writing/              Chinese-only archive
@@ -26,6 +27,7 @@ Generated utility routes:
 ## Rules
 
 - `/writing/` is the canonical archive across languages.
+- `/writing/category/[category]/` is the no-JS category archive surface for approved writing categories.
 - `/en/writing/` and `/zh/writing/` are language-scoped archive views.
 - Article URLs are language-scoped.
 - Route language means content language.

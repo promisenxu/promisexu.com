@@ -1,5 +1,5 @@
 ---
-import { writingCategories } from "@/lib/site";
+import { getWritingCategoryUrl, writingCategories } from "@/lib/site";
 ---
 
 <header class="site-header">
@@ -7,7 +7,7 @@ import { writingCategories } from "@/lib/site";
   <nav aria-label="Primary navigation">
     <a href="/writing/">Writing</a>
     {writingCategories.map((category) => (
-      <a href={`/writing/?category=${encodeURIComponent(category)}`}>{category}</a>
+      <a href={getWritingCategoryUrl(category)}>{category}</a>
     ))}
     <a href="/search/">Search</a>
     <a href="/projects/">Projects</a>

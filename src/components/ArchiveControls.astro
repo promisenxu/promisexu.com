@@ -1,5 +1,5 @@
 ---
-import { writingCategories } from "@/lib/site";
+import { getWritingCategoryUrl, writingCategories } from "@/lib/site";
 
 type Props = {
   selectedLanguage: "all" | "en" | "zh";
@@ -35,7 +35,7 @@ const languageLinks = [
     </a>
     {writingCategories.map((category) => (
       <a
-        href={`/writing/?category=${encodeURIComponent(category)}`}
+        href={getWritingCategoryUrl(category)}
         data-category-link
         data-category-value={category}
         aria-current={selectedCategory === category ? "page" : undefined}

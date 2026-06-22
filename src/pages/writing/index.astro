@@ -5,8 +5,14 @@ import WritingCard from "@/components/WritingCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getPublishedWritings, getWritingUrl } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
+import { writingCategories } from "@/lib/site";
 
 const writings = await getPublishedWritings();
+const categoryParam = Astro.url.searchParams.get("category");
+const selectedCategory = writingCategories.find((category) => category === categoryParam);
+const visibleWritings = selectedCategory
+  ? writings.filter((entry) => entry.data.category === selectedCategory)
+  : writings;
 const archiveItems = writings.map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
@@ -26,21 +32,61 @@ const seo = buildSeo({
   <main>
     <section class="page-header">
       <h1>Writing</h1>
-      <p>Essays, criticism, notes, and published work across English and Chinese.</p>
+      <p data-category-status>
+        {selectedCategory
+          ? `Writing filed under ${selectedCategory}.`
+          : "Essays, criticism, notes, and published work across English and Chinese."}
+      </p>
     </section>
-    <ArchiveControls selectedLanguage="all" />
-    <section aria-label="All writing">
-      {writings.map((entry) => <WritingCard entry={entry} />)}
+    <ArchiveControls selectedLanguage="all" selectedCategory={selectedCategory} />
+    <section
+      data-writing-list
+      aria-label={selectedCategory ? `${selectedCategory} writing` : "All writing"}
+    >
+      {visibleWritings.map((entry) => <WritingCard entry={entry} />)}
     </section>
     <section class="interactive-archive" aria-labelledby="interactive-archive-heading">
       <div class="section-heading">
         <h2 id="interactive-archive-heading">Interactive archive</h2>
-        <p>Filter the same archive by language without leaving this page.</p>
+        <p>Filter the same archive by language and category without leaving this page.</p>
       </div>
-      <ArchiveControlsIsland client:idle items={archiveItems} />
+      <ArchiveControlsIsland
+        client:idle
+        items={archiveItems}
+        categories={writingCategories}
+        selectedCategory={selectedCategory}
+      />
     </section>
   </main>
 </BaseLayout>
+
+<script is:inline define:vars={{ writingCategories }}>
+  const categoryParam = new URLSearchParams(window.location.search).get("category");
+
+  if (categoryParam && writingCategories.includes(categoryParam)) {
+    const status = document.querySelector("[data-category-status]");
+    const writingList = document.querySelector("[data-writing-list]");
+
+    status.textContent = `Writing filed under ${categoryParam}.`;
+    writingList.setAttribute("aria-label", `${categoryParam} writing`);
+
+    document.querySelectorAll("[data-writing-list] .writing-card").forEach((card) => {
+      if (card instanceof HTMLElement) {
+        card.hidden = card.dataset.category !== categoryParam;
+      }
+    });
+
+    document.querySelectorAll("[data-category-link]").forEach((link) => {
+      if (link instanceof HTMLAnchorElement) {
+        if (link.dataset.categoryValue === categoryParam) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      }
+    });
+  }
+</script>
 
 <style>
   .page-header {

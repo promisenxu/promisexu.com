@@ -3,9 +3,10 @@ import { writingCategories } from "@/lib/site";
 
 type Props = {
   selectedLanguage: "all" | "en" | "zh";
+  selectedCategory?: (typeof writingCategories)[number];
 };
 
-const { selectedLanguage } = Astro.props;
+const { selectedLanguage, selectedCategory } = Astro.props;
 const languageLinks = [
   { key: "all", label: "All", href: "/writing/" },
   { key: "en", label: "English", href: "/en/writing/" },
@@ -24,9 +25,23 @@ const languageLinks = [
   </div>
   <div>
     <span>Categories</span>
-    <a href="/writing/">All</a>
+    <a
+      href="/writing/"
+      data-category-link
+      data-category-value="all"
+      aria-current={selectedCategory ? undefined : "page"}
+    >
+      All
+    </a>
     {writingCategories.map((category) => (
-      <a href={`/writing/?category=${encodeURIComponent(category)}`}>{category}</a>
+      <a
+        href={`/writing/?category=${encodeURIComponent(category)}`}
+        data-category-link
+        data-category-value={category}
+        aria-current={selectedCategory === category ? "page" : undefined}
+      >
+        {category}
+      </a>
     ))}
   </div>
 </aside>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ArchiveItem = {
   title: string;
@@ -11,9 +11,12 @@ type ArchiveItem = {
 
 type Props = {
   items: ArchiveItem[];
+  categories?: readonly string[];
+  selectedCategory?: string;
 };
 
 type LanguageFilter = "all" | "en" | "zh";
+type CategoryFilter = "all" | string;
 
 const languageFilters: Array<{ key: LanguageFilter; label: string }> = [
   { key: "all", label: "All" },
@@ -25,30 +28,69 @@ function getLanguageLabel(lang: ArchiveItem["lang"]) {
   return lang === "zh" ? "中文" : "English";
 }
 
-export default function ArchiveControlsIsland({ items }: Props) {
+export default function ArchiveControlsIsland({ items, categories, selectedCategory }: Props) {
   const [language, setLanguage] = useState<LanguageFilter>("all");
+  const [category, setCategory] = useState<CategoryFilter>(selectedCategory ?? "all");
   const [isHydrated, setIsHydrated] = useState(false);
+  const categoryFilters = useMemo(
+    () => categories ?? Array.from(new Set(items.map((item) => item.category))),
+    [categories, items]
+  );
 
   useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+    const categoryParam = new URLSearchParams(window.location.search).get("category");
 
-  const visibleItems = language === "all" ? items : items.filter((item) => item.lang === language);
+    if (categoryParam && categoryFilters.includes(categoryParam)) {
+      setCategory(categoryParam);
+    }
+
+    setIsHydrated(true);
+  }, [categoryFilters]);
+
+  const visibleItems = items.filter((item) => {
+    const matchesLanguage = language === "all" || item.lang === language;
+    const matchesCategory = category === "all" || item.category === category;
+
+    return matchesLanguage && matchesCategory;
+  });
 
   return (
     <div className="archive-controls-island">
-      <div className="island-controls" aria-label="Interactive language filter">
-        {languageFilters.map((item) => (
+      <div className="island-control-groups">
+        <div className="island-controls" aria-label="Interactive language filter">
+          {languageFilters.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              aria-pressed={language === item.key}
+              disabled={!isHydrated}
+              onClick={() => setLanguage(item.key)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div className="island-controls" aria-label="Interactive category filter">
           <button
-            key={item.key}
             type="button"
-            aria-pressed={language === item.key}
+            aria-pressed={category === "all"}
             disabled={!isHydrated}
-            onClick={() => setLanguage(item.key)}
+            onClick={() => setCategory("all")}
           >
-            {item.label}
+            All
           </button>
-        ))}
+          {categoryFilters.map((item) => (
+            <button
+              key={item}
+              type="button"
+              aria-pressed={category === item}
+              disabled={!isHydrated}
+              onClick={() => setCategory(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
 
       {isHydrated ? (
@@ -68,7 +110,7 @@ export default function ArchiveControlsIsland({ items }: Props) {
             ))}
           </div>
         ) : (
-          <p className="island-empty">No writing matches this language filter.</p>
+          <p className="island-empty">No writing matches these filters.</p>
         )
       ) : (
         <p className="island-fallback">Interactive archive filters load when JavaScript is available.</p>
@@ -79,11 +121,16 @@ export default function ArchiveControlsIsland({ items }: Props) {
           margin-top: 20px;
         }
 
+        .island-control-groups {
+          display: grid;
+          gap: 10px;
+          margin-bottom: 12px;
+        }
+
         .island-controls {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
-          margin-bottom: 12px;
         }
 
         .island-controls button {

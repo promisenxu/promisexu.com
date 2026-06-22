@@ -924,6 +924,8 @@ git commit -m "feat: add content and seo helpers"
 
 ## Task 4: Build Layouts And Navigation
 
+Status: Complete in commits `1c6e448` and `17bdf6fda26e6e81325991eeb26d53f9763490f7`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `src/components/SiteNav.astro`
 - Create: `src/layouts/BaseLayout.astro`

@@ -1748,6 +1748,8 @@ git commit -m "feat: add publication launch pages"
 
 ## Task 7: Add Lightweight Client Discovery Islands
 
+Status: Complete in commit `f5c31b7c0447d00b9d7baf12b50d51a2c5f42a5d`; spec and code-quality reviews approved.
+
 **Files:**
 - Modify: `package.json`
 - Modify: `astro.config.mjs`

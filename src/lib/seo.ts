@@ -4,6 +4,7 @@ export type SeoInput = {
   title: string;
   description: string;
   path: string;
+  canonical?: string;
   image?: string;
   type?: "website" | "article";
 };
@@ -20,10 +21,27 @@ export function buildSeo(input: SeoInput) {
   return {
     title: pageTitle(input.title),
     description: input.description,
-    canonical: canonicalUrl(input.path),
+    canonical: input.canonical ?? canonicalUrl(input.path),
     image: input.image ? canonicalUrl(input.image) : undefined,
     type: input.type ?? "website"
   };
+}
+
+export function serializeJsonLd(value: unknown) {
+  const json = JSON.stringify(value) ?? "null";
+
+  return json.replace(/[<\u2028\u2029]/g, (character) => {
+    switch (character) {
+      case "<":
+        return "\\u003C";
+      case "\u2028":
+        return "\\u2028";
+      case "\u2029":
+        return "\\u2029";
+      default:
+        return character;
+    }
+  });
 }
 
 export function personJsonLd() {

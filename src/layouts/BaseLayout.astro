@@ -1,20 +1,23 @@
 ---
 import SiteNav from "@/components/SiteNav.astro";
+import { serializeJsonLd } from "@/lib/seo";
 import "@/styles/global.css";
 
 type Props = {
   title: string;
   description: string;
   canonical: string;
+  lang?: "en" | "zh";
+  image?: string;
   type?: "website" | "article";
   jsonLd?: unknown[];
 };
 
-const { title, description, canonical, type = "website", jsonLd = [] } = Astro.props;
+const { title, description, canonical, lang = "en", image, type = "website", jsonLd = [] } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,9 +28,11 @@ const { title, description, canonical, type = "website", jsonLd = [] } = Astro.p
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary_large_image" />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    {image && <meta name="twitter:image" content={image} />}
     {jsonLd.map((entry) => (
-      <script type="application/ld+json" is:inline set:html={JSON.stringify(entry)} />
+      <script type="application/ld+json" is:inline set:html={serializeJsonLd(entry)} />
     ))}
   </head>
   <body>

@@ -1425,6 +1425,8 @@ git commit -m "feat: add writing archive and article routes"
 
 ## Task 6: Build Homepage, Projects, About, Search, RSS, And Robots
 
+Status: Complete in commits `a2bf7dc` and `373518f8eea9aed5f5b2df153df5a23dd93c1a57`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `src/components/ProjectCard.astro`
 - Create: `src/pages/index.astro`

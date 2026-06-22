@@ -14,7 +14,13 @@ const { project } = Astro.props;
     <p class="project-card__meta">{project.data.role}</p>
     <h2>{project.data.name}</h2>
     <p class="project-card__description">{project.data.description}</p>
-    {project.data.link && <a class="project-card__link" href={project.data.link}>Explore</a>}
+    {
+      project.data.link && (
+        <a class="project-card__link" href={project.data.link}>
+          Explore {project.data.name}
+        </a>
+      )
+    }
   </div>
 </article>
 

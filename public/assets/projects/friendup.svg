@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">FriendUp project visual</title>
+  <desc id="desc">A clean neutral composition suggesting social plans moving from messages to calendar blocks.</desc>
+  <rect width="1200" height="800" fill="#f6f7f7"/>
+  <rect x="145" y="120" width="910" height="560" rx="28" fill="#ffffff" stroke="#d4d9dc" stroke-width="3"/>
+  <rect x="230" y="210" width="300" height="92" rx="46" fill="#e7ecef"/>
+  <rect x="670" y="210" width="300" height="92" rx="46" fill="#2f3b46"/>
+  <rect x="230" y="350" width="245" height="92" rx="46" fill="#2f3b46"/>
+  <rect x="600" y="385" width="370" height="180" rx="20" fill="#f0eee9" stroke="#d4d9dc" stroke-width="2"/>
+  <rect x="640" y="425" width="80" height="80" rx="18" fill="#93a7b0"/>
+  <rect x="750" y="425" width="80" height="80" rx="18" fill="#d7a777"/>
+  <rect x="860" y="425" width="80" height="80" rx="18" fill="#2f3b46"/>
+  <circle cx="310" cy="256" r="24" fill="#93a7b0"/>
+  <circle cx="381" cy="256" r="24" fill="#d7a777"/>
+  <circle cx="452" cy="256" r="24" fill="#2f3b46"/>
+</svg>

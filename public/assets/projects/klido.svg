@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Klido project visual</title>
+  <desc id="desc">A clean neutral composition suggesting an early product profile and selected work.</desc>
+  <rect width="1200" height="800" fill="#f8f8f6"/>
+  <rect x="165" y="125" width="870" height="550" rx="26" fill="#ffffff" stroke="#d9d9d2" stroke-width="3"/>
+  <rect x="250" y="205" width="700" height="72" rx="16" fill="#202427"/>
+  <rect x="250" y="335" width="280" height="245" rx="20" fill="#efefea" stroke="#d9d9d2" stroke-width="2"/>
+  <rect x="580" y="335" width="370" height="28" rx="14" fill="#8f9a9d"/>
+  <rect x="580" y="395" width="315" height="28" rx="14" fill="#c7c3bc"/>
+  <rect x="580" y="455" width="345" height="28" rx="14" fill="#8f9a9d"/>
+  <rect x="580" y="530" width="155" height="58" rx="29" fill="#202427"/>
+  <path d="M332 528 430 388l58 83 42-55 72 112H332Z" fill="#8f9a9d"/>
+  <circle cx="390" cy="395" r="42" fill="#c7a56f"/>
+</svg>

@@ -784,6 +784,8 @@ git commit -m "feat: define content collections"
 
 ## Task 3: Add Content Query And SEO Helpers
 
+Status: Complete in commit `96fa48a`; spec and code-quality reviews approved.
+
 **Files:**
 - Create: `src/lib/content.ts`
 - Create: `src/lib/seo.ts`

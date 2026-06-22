@@ -1,13 +1,21 @@
 ---
 import ProjectCard from "@/components/ProjectCard.astro";
+import HomeDiscoveryIsland from "@/components/HomeDiscoveryIsland";
 import WritingCard from "@/components/WritingCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getFeaturedWritings, getProjects, getPublishedWritings } from "@/lib/content";
+import { getFeaturedWritings, getProjects, getPublishedWritings, getWritingUrl } from "@/lib/content";
 import { buildSeo, personJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const featured = await getFeaturedWritings();
-const latest = (await getPublishedWritings()).slice(0, 5);
+const writings = await getPublishedWritings();
+const latest = writings.slice(0, 5);
 const projects = (await getProjects()).slice(0, 3);
+const discoveryItems = writings.map((entry) => ({
+  title: entry.data.title,
+  description: entry.data.description,
+  url: getWritingUrl(entry),
+  featured: entry.data.featured
+}));
 const seo = buildSeo({
   title: "Promise Xu",
   description: "A personal publication for writing on growth, marketing, business, culture, art, film, and the web.",
@@ -37,6 +45,14 @@ const seo = buildSeo({
         <a href="/search/">Search</a>
       </div>
       {latest.map((entry) => <WritingCard entry={entry} />)}
+    </section>
+
+    <section class="home-section interactive-section" aria-labelledby="discovery-heading">
+      <div class="section-heading">
+        <h2 id="discovery-heading">Interactive discovery</h2>
+        <span>Latest or featured writing</span>
+      </div>
+      <HomeDiscoveryIsland client:idle items={discoveryItems} />
     </section>
 
     <section class="home-section" aria-labelledby="projects-heading">
@@ -97,6 +113,11 @@ const seo = buildSeo({
   }
 
   .section-heading a {
+    color: var(--color-muted);
+    font-weight: 700;
+  }
+
+  .section-heading span {
     color: var(--color-muted);
     font-weight: 700;
   }

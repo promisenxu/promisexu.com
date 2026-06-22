@@ -1,0 +1,26 @@
+# Routing And Language
+
+## Route Contract
+
+```txt
+/                         publication-style homepage
+/writing/                 canonical all-writing archive
+/en/writing/              English-only archive
+/en/writing/[slug]/       English article
+/zh/writing/              Chinese-only archive
+/zh/writing/[slug]/       Chinese article
+/projects/                project gallery
+/about/                   author positioning page
+/search/                  Pagefind search
+```
+
+## Rules
+
+- `/writing/` is the canonical archive across languages.
+- `/en/writing/` and `/zh/writing/` are language-scoped archive views.
+- Article URLs are language-scoped.
+- Route language means content language.
+- UI localization is deferred.
+- Chinese and English writings do not need counterparts.
+- `hreflang` applies only when a true translation counterpart exists.
+- Saved content-language preference can enhance `/writing/`, but scoped routes should not be silently overridden.

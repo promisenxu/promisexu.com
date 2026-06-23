@@ -29,9 +29,103 @@ a {
   text-underline-offset: 0.18em;
 }
 
-main {
-  width: min(1120px, calc(100vw - 32px));
+.site-shell {
+  width: min(1240px, calc(100vw - 32px));
   margin: 0 auto;
+}
+
+.site-rail {
+  display: none;
+}
+
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-brand {
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.mobile-menu__button {
+  padding: 7px 0;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+}
+
+.mobile-menu__panel {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 58px;
+  z-index: 20;
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.mobile-menu__panel nav {
+  display: grid;
+  gap: 14px;
+}
+
+.mobile-menu__panel nav a,
+.site-rail__nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.mobile-menu__panel nav a:hover,
+.site-rail__nav a:hover {
+  color: var(--color-ink);
+}
+
+.search-form {
+  display: grid;
+  gap: 8px;
+}
+
+.search-form label {
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 9px 10px;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font: inherit;
+}
+
+.site-content {
+  min-width: 0;
+}
+
+.site-footer {
+  margin: 64px 0 0;
+  padding: 24px 0 40px;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+main {
+  width: 100%;
 }
 
 .prose {
@@ -44,4 +138,36 @@ main {
 .prose h2,
 .prose h3 {
   line-height: 1.18;
+}
+
+@media (min-width: 900px) {
+  .site-shell {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: clamp(48px, 7vw, 96px);
+  }
+
+  .mobile-header {
+    display: none;
+  }
+
+  .site-rail {
+    position: sticky;
+    top: 0;
+    display: grid;
+    align-content: start;
+    gap: 30px;
+    min-height: 100vh;
+    padding: 32px 0;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .site-rail__nav {
+    display: grid;
+    gap: 12px;
+  }
+
+  .site-content {
+    padding-top: 32px;
+  }
 }

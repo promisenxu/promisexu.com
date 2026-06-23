@@ -1,0 +1,14 @@
+---
+type Props = {
+  id?: string;
+  label?: string;
+  placeholder?: string;
+};
+
+const { id = "site-search", label = "Search", placeholder = "Search" } = Astro.props;
+---
+
+<form class="search-form" role="search" action="/search/" method="get">
+  <label for={id}>{label}</label>
+  <input id={id} type="search" name="q" placeholder={placeholder} autocomplete="off" />
+</form>

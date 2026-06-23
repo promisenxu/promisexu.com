@@ -1,53 +1,24 @@
 ---
-import { getWritingCategoryUrl, writingCategories } from "@/lib/site";
+import MobileMenuIsland from "@/components/MobileMenuIsland";
+import SearchForm from "@/components/SearchForm.astro";
+
+const links = [
+  { href: "/writing/", label: "Writing" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/about/", label: "About" }
+];
 ---
 
-<header class="site-header">
-  <a class="brand" href="/">Promise Xu</a>
-  <nav aria-label="Primary navigation">
-    <a href="/writing/">Writing</a>
-    {writingCategories.map((category) => (
-      <a href={getWritingCategoryUrl(category)}>{category}</a>
-    ))}
-    <a href="/search/">Search</a>
-    <a href="/projects/">Projects</a>
-    <a href="/about/">About</a>
-  </nav>
+<header class="mobile-header">
+  <a class="site-brand" href="/">PROMISE XU</a>
+  <MobileMenuIsland client:load links={links} />
 </header>
 
-<style>
-  .site-header {
-    width: min(1120px, calc(100vw - 32px));
-    margin: 0 auto;
-    padding: 24px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .brand {
-    font-weight: 800;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 0.95rem;
-  }
-
-  nav a {
-    text-decoration: none;
-    color: var(--color-muted);
-  }
-
-  nav a:hover {
-    color: var(--color-ink);
-  }
-</style>
+<aside class="site-rail" aria-label="Site navigation">
+  <a class="site-brand site-brand--rail" href="/">PROMISE XU</a>
+  <nav class="site-rail__nav" aria-label="Primary navigation">
+    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <SearchForm id="rail-site-search" />
+  <slot name="rail" />
+</aside>

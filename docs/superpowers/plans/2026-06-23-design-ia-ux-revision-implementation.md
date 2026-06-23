@@ -1192,14 +1192,14 @@ git commit -m "style: polish article and writing rows"
 
 ---
 
-### Task 6: Project Index, Detail Styling, and Search Results Polish
+### Task 6: Project Index, Detail Styling, and Search Results Polish ✅
 
 **Files:**
 - Modify: `src/pages/projects/index.astro`
 - Modify: `src/pages/search.astro`
 - Modify: `src/styles/global.css`
 
-- [ ] **Step 1: Simplify projects index styles**
+- [x] **Step 1: Simplify projects index styles**
 
 In `src/pages/projects/index.astro`:
 
@@ -1209,11 +1209,11 @@ In `src/pages/projects/index.astro`:
 
 The page should rely on global `.page-header` and `.project-list` CSS.
 
-- [ ] **Step 2: Remove duplicate search page header CSS**
+- [x] **Step 2: Remove duplicate search page header CSS**
 
 In `src/pages/search.astro`, remove the component-local `<style>` block. Keep the existing Pagefind script.
 
-- [ ] **Step 3: Add project and search CSS**
+- [x] **Step 3: Add project and search CSS**
 
 In `src/styles/global.css`, add:
 
@@ -1312,7 +1312,7 @@ In `src/styles/global.css`, add:
 
 Remove any component-local `<style>` from `ProjectCard.astro`.
 
-- [ ] **Step 4: Ensure homepage project cards use compact layout**
+- [x] **Step 4: Ensure homepage project cards use compact layout**
 
 Confirm `src/pages/index.astro` renders:
 
@@ -1320,7 +1320,7 @@ Confirm `src/pages/index.astro` renders:
 {projects.map((project) => <ProjectCard project={project} compact />)}
 ```
 
-- [ ] **Step 5: Run verification**
+- [x] **Step 5: Run verification**
 
 Run:
 
@@ -1335,7 +1335,7 @@ Expected:
 - `npm run build` exits `0`.
 - Pagefind still indexes search content after build.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/pages/projects/index.astro src/pages/search.astro src/styles/global.css src/components/ProjectCard.astro

@@ -3,44 +3,28 @@ import { getWritingUrl, type WritingEntry } from "@/lib/content";
 
 type Props = {
   entry: WritingEntry;
+  headingLevel?: "h2" | "h3";
+  compact?: boolean;
+  showFeaturedTag?: boolean;
 };
 
-const { entry } = Astro.props;
+const { entry, headingLevel = "h2", compact = false, showFeaturedTag = true } = Astro.props;
+const Heading = headingLevel;
 const date = entry.data.date.toISOString().slice(0, 10);
-const languageLabel = entry.data.lang === "zh" ? "中文" : "English";
+const languageLabel = entry.data.lang === "zh" ? "中文" : "EN";
 ---
 
-<article class="writing-card" data-lang={entry.data.lang} data-category={entry.data.category}>
-  <p class="writing-card__meta">{languageLabel} &middot; {entry.data.category}</p>
-  <h2><a href={getWritingUrl(entry)}>{entry.data.title}</a></h2>
-  <p class="writing-card__description">{entry.data.description}</p>
-  <time datetime={date}>{date}</time>
+<article
+  class:list={["writing-row", compact && "writing-row--compact"]}
+  data-lang={entry.data.lang}
+  data-category={entry.data.category}
+>
+  <div class="writing-row__label">
+    {showFeaturedTag && entry.data.featured && <span class="tag">Featured</span>}
+  </div>
+  <div class="writing-row__body">
+    <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
+    <p class="writing-row__description">{entry.data.description}</p>
+    <p class="writing-row__meta">{entry.data.category} &middot; {languageLabel} &middot; <time datetime={date}>{date}</time></p>
+  </div>
 </article>
-
-<style>
-  .writing-card {
-    padding: 24px 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .writing-card h2 {
-    margin: 0 0 8px;
-    font-size: clamp(1.35rem, 2vw, 2rem);
-    line-height: 1.2;
-  }
-
-  .writing-card p {
-    margin: 0 0 12px;
-  }
-
-  .writing-card__meta,
-  .writing-card time {
-    color: var(--color-muted);
-    font-size: 0.9rem;
-  }
-
-  .writing-card__description {
-    color: var(--color-muted);
-    line-height: 1.6;
-  }
-</style>

@@ -1,0 +1,36 @@
+---
+type ViewKey = "all" | "en" | "zh";
+
+type Props = {
+  selected?: ViewKey;
+  label?: string;
+  hrefs?: Record<ViewKey, string>;
+};
+
+const {
+  selected = "all",
+  label = "View",
+  hrefs = {
+    all: "/",
+    en: "/en/writing/",
+    zh: "/zh/writing/"
+  }
+} = Astro.props;
+
+const views: Array<{ key: ViewKey; label: string; href: string }> = [
+  { key: "all", label: "All", href: hrefs.all },
+  { key: "en", label: "EN", href: hrefs.en },
+  { key: "zh", label: "中文", href: hrefs.zh }
+];
+---
+
+<div class="view-filter" data-view-filter>
+  <p>{label}</p>
+  <div>
+    {views.map((view) => (
+      <a href={view.href} data-view={view.key} aria-current={selected === view.key ? "true" : undefined}>
+        {view.label}
+      </a>
+    ))}
+  </div>
+</div>

@@ -24,6 +24,17 @@ export async function getFeaturedWritings() {
   return writings.filter((entry) => entry.data.featured);
 }
 
+export async function getHomepageWritings() {
+  const writings = await getPublishedWritings();
+  return writings.sort((a, b) => {
+    if (a.data.featured !== b.data.featured) {
+      return a.data.featured ? -1 : 1;
+    }
+
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  });
+}
+
 export async function getProjects() {
   const projects = await getCollection("projects");
   return projects.sort((a, b) => a.data.order - b.data.order);

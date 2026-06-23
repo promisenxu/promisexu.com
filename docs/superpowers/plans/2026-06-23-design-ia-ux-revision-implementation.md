@@ -1030,13 +1030,13 @@ git commit -m "feat: align writing archive controls"
 
 ---
 
-### Task 5: Article Layout and Editorial Row Polish
+### Task 5: Article Layout and Editorial Row Polish ✅
 
 **Files:**
 - Modify: `src/layouts/ArticleLayout.astro`
 - Modify: `src/styles/global.css`
 
-- [ ] **Step 1: Simplify article layout markup**
+- [x] **Step 1: Simplify article layout markup**
 
 Replace the `<main class="article-shell">` block in `src/layouts/ArticleLayout.astro` with:
 
@@ -1064,7 +1064,7 @@ Replace the `<main class="article-shell">` block in `src/layouts/ArticleLayout.a
 
 Remove component-local `<style>` from `ArticleLayout.astro`; use global CSS below.
 
-- [ ] **Step 2: Add article and writing row CSS**
+- [x] **Step 2: Add article and writing row CSS**
 
 In `src/styles/global.css`, add:
 
@@ -1154,7 +1154,7 @@ In `src/styles/global.css`, add:
 }
 ```
 
-- [ ] **Step 3: Check global `.prose` remains readable**
+- [x] **Step 3: Check global `.prose` remains readable**
 
 Confirm `src/styles/global.css` still contains:
 
@@ -1168,7 +1168,7 @@ Confirm `src/styles/global.css` still contains:
 
 If missing, add it back unchanged.
 
-- [ ] **Step 4: Run verification**
+- [x] **Step 4: Run verification**
 
 Run:
 
@@ -1183,7 +1183,7 @@ Expected:
 - `npm run build` exits `0`.
 - Article pages build with left rail inherited from `BaseLayout`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/layouts/ArticleLayout.astro src/styles/global.css

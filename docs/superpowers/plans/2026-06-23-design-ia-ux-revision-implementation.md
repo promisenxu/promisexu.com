@@ -799,7 +799,7 @@ git commit -m "feat: redesign homepage writing stream"
 
 ---
 
-### Task 4: Archive Controls and Archive Page Alignment
+### Task 4: Archive Controls and Archive Page Alignment ✅
 
 **Files:**
 - Modify: `src/components/ArchiveControls.astro`
@@ -809,7 +809,7 @@ git commit -m "feat: redesign homepage writing stream"
 - Modify: `src/pages/writing/category/[category].astro`
 - Modify: `src/styles/global.css`
 
-- [ ] **Step 1: Change `ArchiveControls` to category-only page controls**
+- [x] **Step 1: Change `ArchiveControls` to category-only page controls**
 
 Replace `src/components/ArchiveControls.astro` with:
 
@@ -835,7 +835,7 @@ const { selectedCategory } = Astro.props;
 </aside>
 ```
 
-- [ ] **Step 2: Add archive language filter to BaseLayout rail slot**
+- [x] **Step 2: Add archive language filter to BaseLayout rail slot**
 
 On `/writing/`, render:
 
@@ -872,7 +872,7 @@ On `/zh/writing/`, render:
 
 Import `ContentViewFilter` in those files.
 
-- [ ] **Step 3: Add mobile-visible archive language filters**
+- [x] **Step 3: Add mobile-visible archive language filters**
 
 Immediately below each archive page header, render the same `ContentViewFilter` without `slot="rail"` inside:
 
@@ -888,7 +888,7 @@ Immediately below each archive page header, render the same `ContentViewFilter` 
 
 Use `selected="en"` for `/en/writing/` and `selected="zh"` for `/zh/writing/`.
 
-- [ ] **Step 4: Remove interactive archive islands from static archive pages**
+- [x] **Step 4: Remove interactive archive islands from static archive pages**
 
 In `src/pages/writing/index.astro` and `src/pages/writing/category/[category].astro`:
 
@@ -898,7 +898,7 @@ In `src/pages/writing/index.astro` and `src/pages/writing/category/[category].as
 
 The static language routes and category routes now provide the archive browsing baseline.
 
-- [ ] **Step 5: Update ArchiveControls call sites**
+- [x] **Step 5: Update ArchiveControls call sites**
 
 Change:
 
@@ -926,7 +926,7 @@ to:
 
 Remove all `selectedLanguage` props.
 
-- [ ] **Step 6: Add archive CSS**
+- [x] **Step 6: Add archive CSS**
 
 In `src/styles/global.css`, add:
 
@@ -1005,7 +1005,7 @@ In `src/styles/global.css`, add:
 
 Remove duplicate page-header/archive CSS from the touched page files after adding global CSS.
 
-- [ ] **Step 7: Run verification**
+- [x] **Step 7: Run verification**
 
 Run:
 
@@ -1021,7 +1021,7 @@ Expected:
 - `/writing/`, `/en/writing/`, `/zh/writing/`, and category pages build.
 - Global nav does not list writing categories.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/components/ArchiveControls.astro src/pages/writing/index.astro src/pages/en/writing/index.astro src/pages/zh/writing/index.astro 'src/pages/writing/category/[category].astro' src/styles/global.css

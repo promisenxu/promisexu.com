@@ -37,7 +37,7 @@ const projects = defineCollection({
     description: z.string(),
     role: z.string(),
     status: z.string().optional(),
-    image: z.string(),
+    image: z.string().optional(),
     link: z.string().url().optional(),
     featured: z.boolean().default(true),
     order: z.number().int().positive()

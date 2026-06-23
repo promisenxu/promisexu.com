@@ -29,6 +29,19 @@ export async function getProjects() {
   return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
+function getProjectSlug(entry: ProjectEntry) {
+  return entry.id.replace(/\.(md|mdx)$/, "");
+}
+
+export function getProjectUrl(entry: ProjectEntry) {
+  return `/projects/${getProjectSlug(entry)}/`;
+}
+
+export async function getProjectBySlug(slug: string) {
+  const projects = await getProjects();
+  return projects.find((entry) => getProjectSlug(entry) === slug);
+}
+
 export function getWritingUrl(entry: WritingEntry) {
   const prefix = entry.data.lang === "zh" ? "/zh" : "/en";
   return `${prefix}/writing/${entry.data.slug}/`;

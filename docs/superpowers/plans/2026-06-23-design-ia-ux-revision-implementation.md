@@ -1344,14 +1344,14 @@ git commit -m "style: align projects and search pages"
 
 ---
 
-### Task 7: Remove Unused Homepage Discovery Code and Audit JS Weight
+### Task 7: Remove Unused Homepage Discovery Code and Audit JS Weight ✅
 
 **Files:**
 - Delete if unused: `src/components/HomeDiscoveryIsland.tsx`
 - Check: `src/pages/index.astro`
 - Check: `package.json`
 
-- [ ] **Step 1: Confirm discovery island is unused**
+- [x] **Step 1: Confirm discovery island is unused**
 
 Run:
 
@@ -1363,11 +1363,11 @@ Expected after Task 3:
 
 - No references, except possibly the component file itself.
 
-- [ ] **Step 2: Delete unused component if unreferenced**
+- [x] **Step 2: Delete unused component if unreferenced**
 
 If the only remaining match is `src/components/HomeDiscoveryIsland.tsx`, delete that file.
 
-- [ ] **Step 3: Keep React only if still needed**
+- [x] **Step 3: Keep React only if still needed**
 
 Run:
 
@@ -1380,7 +1380,7 @@ Expected:
 - React is still needed for `MobileMenuIsland` and `ContentViewFilterIsland`.
 - Do not remove `@astrojs/react`, `react`, or `react-dom`.
 
-- [ ] **Step 4: Run verification**
+- [x] **Step 4: Run verification**
 
 Run:
 
@@ -1395,7 +1395,7 @@ Expected:
 - `npm run build` exits `0`.
 - No import error for the deleted discovery island.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -u src/components/HomeDiscoveryIsland.tsx

@@ -183,7 +183,7 @@ git commit -m "feat: add internal project detail routes"
 
 ---
 
-### Task 2: Global Shell, Search Form, and Responsive Navigation
+### Task 2: Global Shell, Search Form, and Responsive Navigation ✅
 
 **Files:**
 - Modify: `src/layouts/BaseLayout.astro`
@@ -192,7 +192,7 @@ git commit -m "feat: add internal project detail routes"
 - Create: `src/components/MobileMenuIsland.tsx`
 - Modify: `src/styles/global.css`
 
-- [ ] **Step 1: Create reusable search form**
+- [x] **Step 1: Create reusable search form**
 
 Create `src/components/SearchForm.astro`:
 
@@ -217,7 +217,7 @@ const {
 </form>
 ```
 
-- [ ] **Step 2: Create mobile menu island**
+- [x] **Step 2: Create mobile menu island**
 
 Create `src/components/MobileMenuIsland.tsx`:
 
@@ -260,7 +260,7 @@ export default function MobileMenuIsland({ links }: Props) {
 
 Do not import the Astro component into React at runtime; the inline form above is intentional.
 
-- [ ] **Step 3: Replace `SiteNav` with rail/mobile shell controls**
+- [x] **Step 3: Replace `SiteNav` with rail/mobile shell controls**
 
 Replace `src/components/SiteNav.astro` with:
 
@@ -291,7 +291,7 @@ const links = [
 </aside>
 ```
 
-- [ ] **Step 4: Update `BaseLayout` to own the app shell and rail slot**
+- [x] **Step 4: Update `BaseLayout` to own the app shell and rail slot**
 
 Replace the body portion of `src/layouts/BaseLayout.astro` with:
 
@@ -313,7 +313,7 @@ Replace the body portion of `src/layouts/BaseLayout.astro` with:
 
 Remove the old footer width styles from `BaseLayout.astro`; footer layout will be in global CSS.
 
-- [ ] **Step 5: Add shell CSS foundations**
+- [x] **Step 5: Add shell CSS foundations**
 
 In `src/styles/global.css`, add shell CSS after the `a` rule:
 
@@ -454,7 +454,7 @@ main {
 }
 ```
 
-- [ ] **Step 6: Run verification**
+- [x] **Step 6: Run verification**
 
 Run:
 
@@ -469,7 +469,7 @@ Expected:
 - `npm run build` exits `0`.
 - Build output still includes all existing writing routes and project routes.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/layouts/BaseLayout.astro src/components/SiteNav.astro src/components/SearchForm.astro src/components/MobileMenuIsland.tsx src/styles/global.css

@@ -478,7 +478,7 @@ git commit -m "feat: add responsive left rail shell"
 
 ---
 
-### Task 3: Content View Filter and Homepage Stream
+### Task 3: Content View Filter and Homepage Stream ✅
 
 **Files:**
 - Create: `src/components/ContentViewFilter.astro`
@@ -488,7 +488,7 @@ git commit -m "feat: add responsive left rail shell"
 - Modify: `src/components/WritingCard.astro`
 - Modify: `src/styles/global.css`
 
-- [ ] **Step 1: Add homepage writing ordering helper**
+- [x] **Step 1: Add homepage writing ordering helper**
 
 In `src/lib/content.ts`, add:
 
@@ -505,7 +505,7 @@ export async function getHomepageWritings() {
 }
 ```
 
-- [ ] **Step 2: Create static content view filter markup**
+- [x] **Step 2: Create static content view filter markup**
 
 Create `src/components/ContentViewFilter.astro`:
 
@@ -547,7 +547,7 @@ const views: Array<{ key: ViewKey; label: string; href: string }> = [
 </div>
 ```
 
-- [ ] **Step 3: Create preference-aware homepage filter island**
+- [x] **Step 3: Create preference-aware homepage filter island**
 
 Create `src/components/ContentViewFilterIsland.tsx`:
 
@@ -603,7 +603,7 @@ export default function ContentViewFilterIsland() {
 }
 ```
 
-- [ ] **Step 4: Update `WritingCard` for row styling and featured tag**
+- [x] **Step 4: Update `WritingCard` for row styling and featured tag**
 
 Replace `src/components/WritingCard.astro` with:
 
@@ -640,7 +640,7 @@ const languageLabel = entry.data.lang === "zh" ? "中文" : "EN";
 </article>
 ```
 
-- [ ] **Step 5: Replace homepage content**
+- [x] **Step 5: Replace homepage content**
 
 Replace the body of `src/pages/index.astro` with a layout that imports:
 
@@ -693,7 +693,7 @@ Render:
 
 Remove imports and usage of `HomeDiscoveryIsland`, `getFeaturedWritings`, and `getPublishedWritings`.
 
-- [ ] **Step 6: Add CSS for homepage filtering**
+- [x] **Step 6: Add CSS for homepage filtering**
 
 In `src/styles/global.css`, add:
 
@@ -774,7 +774,7 @@ html[data-content-view="zh"] [data-lang="en"] {
 }
 ```
 
-- [ ] **Step 7: Run verification**
+- [x] **Step 7: Run verification**
 
 Run:
 
@@ -790,7 +790,7 @@ Expected:
 - Homepage no longer references `HomeDiscoveryIsland`.
 - Generated homepage contains the approved masthead copy.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/lib/content.ts src/components/ContentViewFilter.astro src/components/ContentViewFilterIsland.tsx src/components/WritingCard.astro src/pages/index.astro src/styles/global.css

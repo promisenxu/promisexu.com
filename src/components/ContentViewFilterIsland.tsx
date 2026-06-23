@@ -1,49 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type ViewKey = "all" | "en" | "zh";
 
 const storageKey = "promisexu.contentView";
-const views: Array<{ key: ViewKey; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "en", label: "EN" },
-  { key: "zh", label: "中文" }
-];
+const viewKeys: ViewKey[] = ["all", "en", "zh"];
+
+function isViewKey(value: unknown): value is ViewKey {
+  return value === "all" || value === "en" || value === "zh";
+}
+
+function readSavedView() {
+  try {
+    const saved = window.localStorage.getItem(storageKey);
+    return isViewKey(saved) ? saved : "all";
+  } catch {
+    return "all";
+  }
+}
+
+function saveView(view: ViewKey) {
+  try {
+    window.localStorage.setItem(storageKey, view);
+  } catch {
+    // Preference persistence is optional; filtering should still work.
+  }
+}
 
 function applyView(view: ViewKey) {
   document.documentElement.dataset.contentView = view;
+  for (const key of viewKeys) {
+    document.querySelectorAll<HTMLElement>(`[data-view="${key}"]`).forEach((element) => {
+      if (key === view) {
+        element.setAttribute("aria-current", "true");
+      } else {
+        element.removeAttribute("aria-current");
+      }
+    });
+  }
 }
 
 export default function ContentViewFilterIsland() {
-  const [view, setView] = useState<ViewKey>("all");
-
   useEffect(() => {
-    const saved = window.localStorage.getItem(storageKey);
-    const next = saved === "en" || saved === "zh" || saved === "all" ? saved : "all";
-    setView(next);
-    applyView(next);
+    applyView(readSavedView());
+
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-view-filter] [data-view]"));
+    const cleanups = links.map((link) => {
+      const listener = (event: MouseEvent) => {
+        const next = link.dataset.view;
+
+        if (!isViewKey(next)) {
+          return;
+        }
+
+        event.preventDefault();
+        saveView(next);
+        applyView(next);
+      };
+
+      link.addEventListener("click", listener);
+      return () => link.removeEventListener("click", listener);
+    });
+
+    return () => {
+      for (const cleanup of cleanups) {
+        cleanup();
+      }
+    };
   }, []);
 
-  function choose(next: ViewKey) {
-    setView(next);
-    window.localStorage.setItem(storageKey, next);
-    applyView(next);
-  }
-
-  return (
-    <div className="view-filter" data-view-filter>
-      <p>View</p>
-      <div>
-        {views.map((item) => (
-          <button
-            key={item.key}
-            type="button"
-            aria-pressed={view === item.key}
-            onClick={() => choose(item.key)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+  return null;
 }

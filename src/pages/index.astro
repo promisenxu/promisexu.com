@@ -1,4 +1,5 @@
 ---
+import ContentViewFilter from "@/components/ContentViewFilter.astro";
 import ContentViewFilterIsland from "@/components/ContentViewFilterIsland";
 import ProjectCard from "@/components/ProjectCard.astro";
 import WritingCard from "@/components/WritingCard.astro";
@@ -17,7 +18,8 @@ const seo = buildSeo({
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[personJsonLd(), websiteJsonLd()]}>
-  <ContentViewFilterIsland slot="rail" client:load />
+  <ContentViewFilter slot="rail" />
+  <ContentViewFilterIsland client:load />
 
   <main>
     <section class="home-masthead">
@@ -26,7 +28,7 @@ const seo = buildSeo({
     </section>
 
     <div class="mobile-view-filter">
-      <ContentViewFilterIsland client:load />
+      <ContentViewFilter />
     </div>
 
     <section class="writing-stream" aria-label="Selected writing">

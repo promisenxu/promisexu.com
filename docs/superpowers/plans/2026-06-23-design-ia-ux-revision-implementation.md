@@ -32,7 +32,7 @@
 
 ---
 
-### Task 1: Shared Content URLs and Project Detail Data
+### Task 1: Shared Content URLs and Project Detail Data ✅
 
 **Files:**
 - Modify: `src/content/config.ts`
@@ -40,7 +40,7 @@
 - Create: `src/pages/projects/[slug].astro`
 - Modify: `src/components/ProjectCard.astro`
 
-- [ ] **Step 1: Make project images optional in the content schema**
+- [x] **Step 1: Make project images optional in the content schema**
 
 In `src/content/config.ts`, change the projects schema from:
 
@@ -54,7 +54,7 @@ to:
 image: z.string().optional(),
 ```
 
-- [ ] **Step 2: Add project URL helpers**
+- [x] **Step 2: Add project URL helpers**
 
 In `src/lib/content.ts`, add these exports below `getProjects()`:
 
@@ -69,7 +69,7 @@ export async function getProjectBySlug(slug: string) {
 }
 ```
 
-- [ ] **Step 3: Update `ProjectCard` to link internally and tolerate missing images**
+- [x] **Step 3: Update `ProjectCard` to link internally and tolerate missing images**
 
 Replace `src/components/ProjectCard.astro` with:
 
@@ -103,7 +103,7 @@ const projectUrl = getProjectUrl(project);
 
 Use CSS classes in Task 6; do not keep component-local card CSS once global project styles are added.
 
-- [ ] **Step 4: Add static project detail pages**
+- [x] **Step 4: Add static project detail pages**
 
 Create `src/pages/projects/[slug].astro`:
 
@@ -159,7 +159,7 @@ const { Content } = await project.render();
 </BaseLayout>
 ```
 
-- [ ] **Step 5: Run type/build verification**
+- [x] **Step 5: Run type/build verification**
 
 Run:
 
@@ -174,7 +174,7 @@ Expected:
 - `npm run build` exits `0`.
 - Build output includes generated `/projects/valhalla/`, `/projects/friendup/`, and `/projects/klido/` pages.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/content/config.ts src/lib/content.ts src/components/ProjectCard.astro src/pages/projects/[slug].astro

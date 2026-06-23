@@ -1,9 +1,9 @@
 ---
 import ArchiveControls from "@/components/ArchiveControls.astro";
-import ArchiveControlsIsland from "@/components/ArchiveControlsIsland";
+import ContentViewFilter from "@/components/ContentViewFilter.astro";
 import WritingCard from "@/components/WritingCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getWritingsByCategory, getWritingUrl } from "@/lib/content";
+import { getWritingsByCategory } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
 import {
   writingCategories,
@@ -24,14 +24,6 @@ export function getStaticPaths() {
 
 const { category } = Astro.props;
 const writings = await getWritingsByCategory(category);
-const archiveItems = writings.map((entry) => ({
-  title: entry.data.title,
-  description: entry.data.description,
-  url: getWritingUrl(entry),
-  lang: entry.data.lang,
-  category: entry.data.category,
-  date: entry.data.date.toISOString().slice(0, 10)
-}));
 const seo = buildSeo({
   title: `${category} Writing`,
   description: `Writing filed under ${category} by Promise Xu.`,
@@ -40,79 +32,29 @@ const seo = buildSeo({
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[websiteJsonLd()]}>
+  <ContentViewFilter
+    selected="all"
+    label="View writing"
+    hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
+    slot="rail"
+  />
+
   <main>
     <section class="page-header">
       <p class="eyebrow">Category archive</p>
       <h1>{category}</h1>
       <p>Writing filed under {category}.</p>
     </section>
-    <ArchiveControls selectedLanguage="all" selectedCategory={category} />
+    <div class="archive-language-mobile">
+      <ContentViewFilter
+        selected="all"
+        label="View writing"
+        hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
+      />
+    </div>
+    <ArchiveControls selectedCategory={category} />
     <section aria-label={`${category} writing`}>
       {writings.map((entry) => <WritingCard entry={entry} />)}
     </section>
-    <section class="interactive-archive" aria-labelledby="interactive-archive-heading">
-      <div class="section-heading">
-        <h2 id="interactive-archive-heading">Interactive archive</h2>
-        <p>Filter this category archive by language without leaving this page.</p>
-      </div>
-      <ArchiveControlsIsland
-        client:idle
-        items={archiveItems}
-        categories={writingCategories}
-        selectedCategory={category}
-      />
-    </section>
   </main>
 </BaseLayout>
-
-<style>
-  .page-header {
-    padding: 56px 0 8px;
-  }
-
-  .eyebrow {
-    margin: 0 0 10px;
-    color: var(--color-muted);
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .page-header h1 {
-    margin: 0 0 12px;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    line-height: 0.95;
-  }
-
-  .page-header p:not(.eyebrow) {
-    max-width: 62ch;
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 1.15rem;
-    line-height: 1.6;
-  }
-
-  .interactive-archive {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .section-heading {
-    display: grid;
-    gap: 8px;
-  }
-
-  .section-heading h2 {
-    margin: 0;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-  }
-
-  .section-heading p {
-    max-width: 62ch;
-    margin: 0;
-    color: var(--color-muted);
-    line-height: 1.6;
-  }
-</style>

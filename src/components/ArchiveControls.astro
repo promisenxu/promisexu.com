@@ -2,84 +2,18 @@
 import { getWritingCategoryUrl, writingCategories } from "@/lib/site";
 
 type Props = {
-  selectedLanguage: "all" | "en" | "zh";
   selectedCategory?: (typeof writingCategories)[number];
 };
 
-const { selectedLanguage, selectedCategory } = Astro.props;
-const languageLinks = [
-  { key: "all", label: "All", href: "/writing/" },
-  { key: "en", label: "English", href: "/en/writing/" },
-  { key: "zh", label: "中文", href: "/zh/writing/" }
-] as const;
+const { selectedCategory } = Astro.props;
 ---
 
-<aside class="archive-controls" aria-label="Writing filters">
-  <div>
-    <span>Language</span>
-    {languageLinks.map((item) => (
-      <a href={item.href} aria-current={selectedLanguage === item.key ? "page" : undefined}>
-        {item.label}
-      </a>
-    ))}
-  </div>
-  <div>
-    <span>Categories</span>
-    <a
-      href="/writing/"
-      data-category-link
-      data-category-value="all"
-      aria-current={selectedCategory ? undefined : "page"}
-    >
-      All
+<aside class="archive-controls" aria-label="Writing category filters">
+  <span>Category</span>
+  <a href="/writing/" aria-current={selectedCategory ? undefined : "page"}>All</a>
+  {writingCategories.map((category) => (
+    <a href={getWritingCategoryUrl(category)} aria-current={selectedCategory === category ? "page" : undefined}>
+      {category}
     </a>
-    {writingCategories.map((category) => (
-      <a
-        href={getWritingCategoryUrl(category)}
-        data-category-link
-        data-category-value={category}
-        aria-current={selectedCategory === category ? "page" : undefined}
-      >
-        {category}
-      </a>
-    ))}
-  </div>
+  ))}
 </aside>
-
-<style>
-  .archive-controls {
-    display: grid;
-    gap: 12px;
-    padding: 16px;
-    margin: 24px 0;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-  }
-
-  .archive-controls div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .archive-controls span {
-    color: var(--color-muted);
-    font-size: 0.9rem;
-  }
-
-  .archive-controls a {
-    padding: 6px 10px;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    text-decoration: none;
-  }
-
-  .archive-controls a[aria-current="page"] {
-    color: var(--color-bg);
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-  }
-</style>

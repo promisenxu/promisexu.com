@@ -1,21 +1,12 @@
 ---
 import ArchiveControls from "@/components/ArchiveControls.astro";
-import ArchiveControlsIsland from "@/components/ArchiveControlsIsland";
+import ContentViewFilter from "@/components/ContentViewFilter.astro";
 import WritingCard from "@/components/WritingCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getPublishedWritings, getWritingUrl } from "@/lib/content";
+import { getPublishedWritings } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
-import { writingCategories } from "@/lib/site";
 
 const writings = await getPublishedWritings();
-const archiveItems = writings.map((entry) => ({
-  title: entry.data.title,
-  description: entry.data.description,
-  url: getWritingUrl(entry),
-  lang: entry.data.lang,
-  category: entry.data.category,
-  date: entry.data.date.toISOString().slice(0, 10)
-}));
 const seo = buildSeo({
   title: "Writing",
   description: "All writing by Promise Xu across English and Chinese.",
@@ -24,68 +15,28 @@ const seo = buildSeo({
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[websiteJsonLd()]}>
+  <ContentViewFilter
+    selected="all"
+    label="View writing"
+    hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
+    slot="rail"
+  />
+
   <main>
     <section class="page-header">
       <h1>Writing</h1>
       <p>Essays, criticism, notes, and published work across English and Chinese.</p>
     </section>
-    <ArchiveControls selectedLanguage="all" />
+    <div class="archive-language-mobile">
+      <ContentViewFilter
+        selected="all"
+        label="View writing"
+        hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
+      />
+    </div>
+    <ArchiveControls />
     <section aria-label="All writing">
       {writings.map((entry) => <WritingCard entry={entry} />)}
     </section>
-    <section class="interactive-archive" aria-labelledby="interactive-archive-heading">
-      <div class="section-heading">
-        <h2 id="interactive-archive-heading">Interactive archive</h2>
-        <p>Filter the same archive by language and category without leaving this page.</p>
-      </div>
-      <ArchiveControlsIsland
-        client:idle
-        items={archiveItems}
-        categories={writingCategories}
-      />
-    </section>
   </main>
 </BaseLayout>
-
-<style>
-  .page-header {
-    padding: 56px 0 8px;
-  }
-
-  .page-header h1 {
-    margin: 0 0 12px;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    line-height: 0.95;
-  }
-
-  .page-header p {
-    max-width: 62ch;
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 1.15rem;
-    line-height: 1.6;
-  }
-
-  .interactive-archive {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .section-heading {
-    display: grid;
-    gap: 8px;
-  }
-
-  .section-heading h2 {
-    margin: 0;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-  }
-
-  .section-heading p {
-    max-width: 62ch;
-    margin: 0;
-    color: var(--color-muted);
-    line-height: 1.6;
-  }
-</style>

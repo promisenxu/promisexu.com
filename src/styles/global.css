@@ -104,6 +104,7 @@ a {
 }
 
 .search-form input {
+  box-sizing: border-box;
   width: 100%;
   padding: 9px 10px;
   color: var(--color-ink);

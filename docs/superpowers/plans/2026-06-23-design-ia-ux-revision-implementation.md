@@ -1406,7 +1406,7 @@ If no file was deleted, skip this commit and add a status note to this plan unde
 
 ---
 
-### Task 8: Final Verification and Documentation Alignment
+### Task 8: Final Verification and Documentation Alignment ✅
 
 **Files:**
 - Modify if needed: `README.md`
@@ -1414,7 +1414,7 @@ If no file was deleted, skip this commit and add a status note to this plan unde
 - Modify if needed: `docs/design/references.md`
 - Modify: `docs/superpowers/plans/2026-06-23-design-ia-ux-revision-implementation.md`
 
-- [ ] **Step 1: Verify README still matches the implemented shell**
+- [x] **Step 1: Verify README still matches the implemented shell**
 
 Open `README.md` and confirm the launch goal still accurately describes:
 
@@ -1426,7 +1426,7 @@ Open `README.md` and confirm the launch goal still accurately describes:
 
 If README claims search is only a page or omits project detail pages after they exist, update the relevant bullet.
 
-- [ ] **Step 2: Verify routing documentation**
+- [x] **Step 2: Verify routing documentation**
 
 Open `docs/architecture/routing-and-language.md` and confirm it documents:
 
@@ -1437,7 +1437,7 @@ Open `docs/architecture/routing-and-language.md` and confirm it documents:
 
 Update only stale sections.
 
-- [ ] **Step 3: Verify design reference documentation**
+- [x] **Step 3: Verify design reference documentation**
 
 Open `docs/design/references.md` and confirm the visual direction notes align with:
 
@@ -1448,7 +1448,7 @@ Open `docs/design/references.md` and confirm the visual direction notes align wi
 
 Update only stale sections.
 
-- [ ] **Step 4: Run full verification**
+- [x] **Step 4: Run full verification**
 
 Run:
 
@@ -1476,7 +1476,7 @@ Expected:
   - `/about/`
   - `/search/`
 
-- [ ] **Step 5: Inspect git status**
+- [x] **Step 5: Inspect git status**
 
 Run:
 
@@ -1488,7 +1488,7 @@ Expected:
 
 - Only intended docs/status files are modified before the final commit.
 
-- [ ] **Step 6: Commit docs alignment and plan status**
+- [x] **Step 6: Commit docs alignment and plan status**
 
 ```bash
 git add README.md docs/architecture/routing-and-language.md docs/design/references.md docs/superpowers/plans/2026-06-23-design-ia-ux-revision-implementation.md

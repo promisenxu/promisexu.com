@@ -11,8 +11,9 @@
 /zh/writing/              Chinese-only archive
 /zh/writing/[slug]/       Chinese article
 /projects/                project gallery
+/projects/[slug]/         internal project detail page
 /about/                   author positioning page
-/search/                  Pagefind search
+/search/                  Pagefind search results and no-JS fallback
 ```
 
 Generated utility routes:
@@ -32,6 +33,10 @@ Generated utility routes:
 - Article URLs are language-scoped.
 - Route language means content language.
 - UI localization is deferred.
+- The homepage `View / All / EN / 中文` control is a content-view preference, not a UI language switch.
+- Desktop writing archive language controls live in the rail; mobile language controls remain visible above archive content.
+- Category controls live in archive page content, not the global rail.
+- Global search submits to `/search/?q=<query>`, and `/search/` consumes that query through Pagefind.
 - Chinese and English writings do not need counterparts.
 - `hreflang` applies only when a true translation counterpart exists.
-- Saved content-language preference can enhance `/writing/`, but scoped routes should not be silently overridden.
+- Saved content-language preference can enhance homepage browsing, but explicit scoped routes should not be silently overridden.

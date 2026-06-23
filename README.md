@@ -11,8 +11,8 @@ The first public launch is a publication core with light proof:
 - `/en/writing/` and `/zh/writing/` as language-scoped archives.
 - `/en/writing/[slug]/` and `/zh/writing/[slug]/` as language-scoped article routes.
 - Category-led writing navigation using Growth, Marketing & Business; Culture, Art & Film; and Misc.
-- Pagefind search.
-- Project gallery for Valhalla, FriendUp, and Klido.
+- Pagefind search exposed through the global navigation.
+- Project gallery and project detail pages for Valhalla, FriendUp, and Klido.
 - `/about/` as an author/positioning page.
 - SEO and AEO foundations.
 
@@ -33,6 +33,7 @@ The first public launch is a publication core with light proof:
 - URL language scope is content language, not UI language.
 - Full UI localization is deferred.
 - Static HTML is the default; hydrate JavaScript only where interaction earns it.
+- Desktop navigation uses a sticky left rail; mobile navigation uses a compact hamburger menu.
 - Comments must not require GitHub login when implemented later.
 - Turnstile must be validated server-side when comments are implemented later.
 - Comments remain moderated by default when implemented later.
@@ -53,7 +54,9 @@ The first public launch is a publication core with light proof:
 ## Current Planning Docs
 
 - Design spec: `docs/superpowers/specs/2026-06-22-publication-core-design.md`
+- Design/IA/UX revision spec: `docs/superpowers/specs/2026-06-23-design-ia-ux-revision.md`
 - Implementation plan: `docs/superpowers/plans/2026-06-22-publication-core-implementation.md`
+- Design/IA/UX revision implementation plan: `docs/superpowers/plans/2026-06-23-design-ia-ux-revision-implementation.md`
 - Design references: `docs/design/references.md`
 - Routing and language: `docs/architecture/routing-and-language.md`
 - SEO and AEO: `docs/architecture/seo-aeo.md`

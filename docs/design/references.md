@@ -4,6 +4,8 @@
 
 The site should feel clean, structured, and editorial. It should not use a heavy global background, strong global color wash, or theme treatment that forces every article/page to feel the same. Individual articles and sections should have room to carry their own tone through content, imagery, and local layout choices.
 
+The current shell direction is a restrained sans-editorial system: sticky left rail on desktop, compact hamburger navigation on mobile, real search in navigation, and quiet row-based browsing surfaces.
+
 ## Reference Priority
 
 1. Self Esteem: primary visual reference for a magazine-style editorial publication.
@@ -15,6 +17,8 @@ The site should feel clean, structured, and editorial. It should not use a heavy
 ## Borrow
 
 - Editorial masthead clarity.
+- Sticky left-rail discipline without app-sidebar heaviness.
+- Mobile navigation that remains compact while preserving search access.
 - Strong writing-first homepage hierarchy.
 - Dense but readable archive treatment.
 - Long-form typography rhythm.
@@ -27,6 +31,8 @@ The site should feel clean, structured, and editorial. It should not use a heavy
 - Full-template adoption before auditing structure.
 - Portfolio-first homepage patterns.
 - Generic oversized personal hero.
+- Luxury-brand spacing that delays browsing.
+- Category links in the persistent global nav.
 - Decorative global backgrounds.
 - Strong global color themes that limit page-level tone.
 - Visual gimmicks that weaken reading.

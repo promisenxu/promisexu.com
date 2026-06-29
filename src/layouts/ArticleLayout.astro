@@ -11,15 +11,6 @@ type Props = {
 
 const { entry } = Astro.props;
 const url = getWritingUrl(entry);
-const counterpart = await getWritingCounterpart(entry);
-const enUrl = entry.data.lang === "en" ? url : counterpart && getWritingUrl(counterpart);
-const zhUrl = entry.data.lang === "zh" ? url : counterpart && getWritingUrl(counterpart);
-const alternates = counterpart
-  ? [
-      { lang: "en" as const, href: new URL(enUrl!, site.url).toString() },
-      { lang: "zh" as const, href: new URL(zhUrl!, site.url).toString() }
-    ]
-  : [];
 const seo = buildSeo({
   title: entry.data.title,
   description: entry.data.description,
@@ -27,6 +18,22 @@ const seo = buildSeo({
   canonical: entry.data.canonicalUrl,
   type: "article"
 });
+const counterpart = await getWritingCounterpart(entry);
+const counterpartCanonical = counterpart && buildSeo({
+  title: counterpart.data.title,
+  description: counterpart.data.description,
+  path: getWritingUrl(counterpart),
+  canonical: counterpart.data.canonicalUrl,
+  type: "article"
+}).canonical;
+const enUrl = entry.data.lang === "en" ? url : counterpart && getWritingUrl(counterpart);
+const zhUrl = entry.data.lang === "zh" ? url : counterpart && getWritingUrl(counterpart);
+const alternates = counterpart
+  ? [
+      { lang: "en" as const, href: entry.data.lang === "en" ? seo.canonical : counterpartCanonical! },
+      { lang: "zh" as const, href: entry.data.lang === "zh" ? seo.canonical : counterpartCanonical! }
+    ]
+  : [];
 const publishedDate = entry.data.date.toISOString().slice(0, 10);
 const updatedDate = entry.data.updated?.toISOString().slice(0, 10);
 const jsonLd = [

@@ -9,12 +9,13 @@ export async function GET() {
     title: site.title,
     description: site.description,
     site: site.url,
+    xmlns: { dc: "http://purl.org/dc/elements/1.1/" },
     items: writings.map((entry) => ({
       title: entry.data.title,
       description: entry.data.description,
       pubDate: entry.data.date,
       link: getWritingUrl(entry),
-      author: site.author
+      customData: `<dc:creator>${site.author}</dc:creator>`
     }))
   });
 }

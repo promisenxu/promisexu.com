@@ -4,6 +4,7 @@ import LanguageSwitch from "@/components/LanguageSwitch.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getProjectCounterpart, getProjects, getProjectUrl, type ProjectEntry } from "@/lib/content";
 import { buildSeo } from "@/lib/seo";
+import { site } from "@/lib/site";
 
 type Props = {
   project: ProjectEntry;
@@ -21,6 +22,12 @@ const { project } = Astro.props;
 const counterpart = await getProjectCounterpart(project);
 const enUrl = project.data.lang === "en" ? getProjectUrl(project) : counterpart && getProjectUrl(counterpart);
 const zhUrl = project.data.lang === "zh" ? getProjectUrl(project) : counterpart && getProjectUrl(counterpart);
+const alternates = counterpart
+  ? [
+      { lang: "en" as const, href: new URL(enUrl!, site.url).toString() },
+      { lang: "zh" as const, href: new URL(zhUrl!, site.url).toString() }
+    ]
+  : [];
 const seo = buildSeo({
   title: project.data.name,
   description: project.data.description,
@@ -29,7 +36,13 @@ const seo = buildSeo({
 const { Content } = await render(project);
 ---
 
-<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} showContentView={false}>
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  alternates={alternates}
+  showContentView={false}
+>
   <main>
     <section class="page-header page-header--compact">
       <p class="eyebrow">Project</p>

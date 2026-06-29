@@ -25,7 +25,7 @@ const seo = buildSeo({
 const { Content } = await render(project);
 ---
 
-<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical}>
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} showContentView={false}>
   <main>
     <section class="page-header page-header--compact">
       <p class="eyebrow">Project</p>

@@ -38,6 +38,7 @@ const projects = defineCollection({
     description: z.string(),
     lang: z.enum(["en", "zh"]),
     translationKey: z.string().optional(),
+    slug: z.string(),
     role: z.string(),
     status: z.string().optional(),
     image: z.string().optional(),

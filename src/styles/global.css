@@ -480,8 +480,12 @@ html[data-content-view="zh"] [data-lang="en"] {
   border-top: 1px solid var(--color-border);
 }
 
-.about__section h1,
-.about__section h2 {
+html[data-content-view="zh"] .about__section[data-lang="zh"] {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.about__section h1 {
   margin-top: 0;
 }
 

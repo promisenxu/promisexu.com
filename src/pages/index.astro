@@ -32,7 +32,7 @@ const seo = buildSeo({
     {Object.entries(homepageWritings).map(([view, entries]) => {
       const languagePositions = { en: 0, zh: 0 };
       return (
-        <section class="writing-stream" aria-label="Selected writing" data-home-view={view}>
+        <section class="writing-stream" aria-label="Selected writing" data-home-view={view} hidden={view !== "all"}>
           {entries.map((entry) => {
             const position = languagePositions[entry.data.lang]++;
             const variant = position === 0 ? "lead" : position < 3 ? "tile" : "row";

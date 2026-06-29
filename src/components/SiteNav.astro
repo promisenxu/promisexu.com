@@ -1,6 +1,13 @@
 ---
+import ContentViewFilter from "@/components/ContentViewFilter.astro";
 import MobileMenuIsland from "@/components/MobileMenuIsland";
 import SearchForm from "@/components/SearchForm.astro";
+
+type Props = {
+  showContentView?: boolean;
+};
+
+const { showContentView = true } = Astro.props;
 
 const links = [
   { href: "/writing/", label: "Writing" },
@@ -11,14 +18,23 @@ const links = [
 
 <header class="mobile-header">
   <a class="site-brand" href="/">PROMISE XU</a>
-  <MobileMenuIsland client:load links={links} />
+  <MobileMenuIsland client:load links={links} showContentView={showContentView} />
 </header>
 
 <aside class="site-rail" aria-label="Site navigation">
-  <a class="site-brand site-brand--rail" href="/">PROMISE XU</a>
-  <nav class="site-rail__nav" aria-label="Primary navigation">
-    {links.map((link) => <a href={link.href}>{link.label}</a>)}
-  </nav>
-  <SearchForm id="rail-site-search" />
-  <slot name="rail" />
+  <div class="site-rail__top">
+    <a class="site-brand site-brand--rail" href="/">
+      <span>PROMISE</span>
+      <span>XU</span>
+    </a>
+    <nav class="site-rail__nav" aria-label="Primary navigation">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <SearchForm id="rail-site-search" />
+  </div>
+  {showContentView && (
+    <div class="site-rail__bottom">
+      <ContentViewFilter />
+    </div>
+  )}
 </aside>

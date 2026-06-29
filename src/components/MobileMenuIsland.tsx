@@ -2,9 +2,16 @@ import { useState } from "react";
 
 type Props = {
   links: Array<{ href: string; label: string }>;
+  showContentView?: boolean;
 };
 
-export default function MobileMenuIsland({ links }: Props) {
+const views = [
+  { key: "all", label: "All", href: "/" },
+  { key: "en", label: "EN", href: "/en/writing/" },
+  { key: "zh", label: "中文", href: "/zh/writing/" }
+];
+
+export default function MobileMenuIsland({ links, showContentView = true }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,6 +43,18 @@ export default function MobileMenuIsland({ links }: Props) {
             autoComplete="off"
           />
         </form>
+        {showContentView && (
+          <div className="view-filter mobile-menu__view" data-view-filter>
+            <p>View</p>
+            <div>
+              {views.map((view) => (
+                <a key={view.key} href={view.href} data-view={view.key}>
+                  {view.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

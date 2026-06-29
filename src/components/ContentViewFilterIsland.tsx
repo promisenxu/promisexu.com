@@ -28,6 +28,13 @@ function saveView(view: ViewKey) {
 
 function applyView(view: ViewKey) {
   document.documentElement.dataset.contentView = view;
+  document.querySelectorAll<HTMLElement>("[data-lang]").forEach((element) => {
+    element.hidden = view !== "all" && element.dataset.lang !== view;
+  });
+  document.querySelectorAll<HTMLElement>("[data-empty-for]").forEach((element) => {
+    element.hidden = element.dataset.emptyFor !== view;
+  });
+
   for (const key of viewKeys) {
     document.querySelectorAll<HTMLElement>(`[data-view="${key}"]`).forEach((element) => {
       if (key === view) {

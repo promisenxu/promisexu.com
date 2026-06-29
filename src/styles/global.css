@@ -30,8 +30,7 @@ a {
 }
 
 .site-shell {
-  width: min(1240px, calc(100vw - 32px));
-  margin: 0 auto;
+  min-height: 100vh;
 }
 
 .site-rail {
@@ -39,11 +38,15 @@ a {
 }
 
 .mobile-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 18px 0;
+  padding: 14px 16px;
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -64,16 +67,19 @@ a {
 }
 
 .mobile-menu__panel {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  top: 58px;
+  position: fixed;
+  inset: 57px 0 0;
   z-index: 20;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
+}
+
+.mobile-menu__view {
+  margin-top: auto;
 }
 
 .mobile-menu__panel nav {
@@ -116,6 +122,8 @@ a {
 
 .site-content {
   min-width: 0;
+  width: min(100% - 32px, 1060px);
+  margin: 0 auto;
 }
 
 .site-footer {
@@ -192,6 +200,19 @@ main {
 html[data-content-view="en"] [data-lang="zh"],
 html[data-content-view="zh"] [data-lang="en"] {
   display: none;
+}
+
+[data-empty-for] {
+  display: none;
+}
+
+[data-empty-for]:not([hidden]) {
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .writing-stream {
@@ -451,9 +472,7 @@ html[data-content-view="zh"] [data-lang="en"] {
 
 @media (min-width: 900px) {
   .site-shell {
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: clamp(48px, 7vw, 96px);
+    --rail-width: 240px;
   }
 
   .mobile-header {
@@ -461,23 +480,49 @@ html[data-content-view="zh"] [data-lang="en"] {
   }
 
   .site-rail {
-    position: sticky;
+    position: fixed;
     top: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    width: var(--rail-width);
+    box-sizing: border-box;
+    padding: 36px 28px;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .site-rail__top {
     display: grid;
     align-content: start;
-    gap: 30px;
-    min-height: 100vh;
-    padding: 32px 0;
-    border-right: 1px solid var(--color-border);
+    gap: 42px;
+  }
+
+  .site-brand--rail {
+    display: grid;
+    font-size: 1.5rem;
+    line-height: 1;
   }
 
   .site-rail__nav {
     display: grid;
-    gap: 12px;
+    gap: 18px;
+    font-size: 1.2rem;
+  }
+
+  .site-rail .search-form {
+    padding-right: 8px;
+  }
+
+  .site-rail__bottom {
+    padding-top: 28px;
   }
 
   .site-content {
-    padding-top: 32px;
+    width: auto;
+    max-width: 1060px;
+    margin-left: var(--rail-width);
+    padding: 36px clamp(32px, 5vw, 80px) 0;
   }
 
   .project-card {

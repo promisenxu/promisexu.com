@@ -1,5 +1,6 @@
 ---
 import SiteNav from "@/components/SiteNav.astro";
+import ContentViewFilterIsland from "@/components/ContentViewFilterIsland";
 import { serializeJsonLd } from "@/lib/seo";
 import "@/styles/global.css";
 
@@ -11,9 +12,19 @@ type Props = {
   image?: string;
   type?: "website" | "article";
   jsonLd?: unknown[];
+  showContentView?: boolean;
 };
 
-const { title, description, canonical, lang = "en", image, type = "website", jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  lang = "en",
+  image,
+  type = "website",
+  jsonLd = [],
+  showContentView = true
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -36,10 +47,9 @@ const { title, description, canonical, lang = "en", image, type = "website", jso
     ))}
   </head>
   <body>
+    {showContentView && <ContentViewFilterIsland client:load />}
     <div class="site-shell">
-      <SiteNav>
-        <slot name="rail" slot="rail" />
-      </SiteNav>
+      <SiteNav showContentView={showContentView} />
       <div class="site-content">
         <slot />
         <footer class="site-footer">

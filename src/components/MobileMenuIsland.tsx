@@ -1,18 +1,21 @@
 import { useState } from "react";
 
+type ViewKey = "all" | "en" | "zh";
+
 type Props = {
   links: Array<{ href: string; label: string }>;
   showContentView?: boolean;
+  initialView: ViewKey;
+  hrefs: Record<ViewKey, string>;
 };
 
-const views = [
-  { key: "all", label: "All", href: "/" },
-  { key: "en", label: "EN", href: "/en/writing/" },
-  { key: "zh", label: "中文", href: "/zh/writing/" }
-];
-
-export default function MobileMenuIsland({ links, showContentView = true }: Props) {
+export default function MobileMenuIsland({ links, showContentView = true, initialView, hrefs }: Props) {
   const [open, setOpen] = useState(false);
+  const views: Array<{ key: ViewKey; label: string }> = [
+    { key: "all", label: "All" },
+    { key: "en", label: "EN" },
+    { key: "zh", label: "中文" }
+  ];
 
   return (
     <div className="mobile-menu">
@@ -48,7 +51,12 @@ export default function MobileMenuIsland({ links, showContentView = true }: Prop
             <p>View</p>
             <div>
               {views.map((view) => (
-                <a key={view.key} href={view.href} data-view={view.key}>
+                <a
+                  key={view.key}
+                  href={hrefs[view.key]}
+                  data-view={view.key}
+                  aria-current={initialView === view.key ? "true" : undefined}
+                >
                   {view.label}
                 </a>
               ))}

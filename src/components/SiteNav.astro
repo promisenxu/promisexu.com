@@ -3,11 +3,15 @@ import ContentViewFilter from "@/components/ContentViewFilter.astro";
 import MobileMenuIsland from "@/components/MobileMenuIsland";
 import SearchForm from "@/components/SearchForm.astro";
 
+type ViewKey = "all" | "en" | "zh";
+
 type Props = {
   showContentView?: boolean;
+  initialView: ViewKey;
+  hrefs: Record<ViewKey, string>;
 };
 
-const { showContentView = true } = Astro.props;
+const { showContentView = true, initialView, hrefs } = Astro.props;
 
 const links = [
   { href: "/writing/", label: "Writing" },
@@ -18,7 +22,13 @@ const links = [
 
 <header class="mobile-header">
   <a class="site-brand" href="/">PROMISE XU</a>
-  <MobileMenuIsland client:load links={links} showContentView={showContentView} />
+  <MobileMenuIsland
+    client:load
+    links={links}
+    showContentView={showContentView}
+    initialView={initialView}
+    hrefs={hrefs}
+  />
 </header>
 
 <aside class="site-rail" aria-label="Site navigation">
@@ -34,7 +44,7 @@ const links = [
   </div>
   {showContentView && (
     <div class="site-rail__bottom">
-      <ContentViewFilter />
+      <ContentViewFilter selected={initialView} hrefs={hrefs} />
     </div>
   )}
 </aside>

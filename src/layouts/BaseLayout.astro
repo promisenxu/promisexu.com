@@ -25,6 +25,20 @@ const {
   jsonLd = [],
   showContentView = true
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const initialView = pathname.startsWith("/en/writing/")
+  ? "en"
+  : pathname.startsWith("/zh/writing/")
+    ? "zh"
+    : "all";
+const isWritingContext =
+  pathname.startsWith("/writing/") ||
+  pathname.startsWith("/en/writing/") ||
+  pathname.startsWith("/zh/writing/");
+const viewHrefs = isWritingContext
+  ? { all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }
+  : { all: pathname, en: "/en/writing/", zh: "/zh/writing/" };
 ---
 
 <!doctype html>
@@ -47,9 +61,9 @@ const {
     ))}
   </head>
   <body>
-    {showContentView && <ContentViewFilterIsland client:load />}
+    {showContentView && <ContentViewFilterIsland client:load initialView={initialView} />}
     <div class="site-shell">
-      <SiteNav showContentView={showContentView} />
+      <SiteNav showContentView={showContentView} initialView={initialView} hrefs={viewHrefs} />
       <div class="site-content">
         <slot />
         <footer class="site-footer">

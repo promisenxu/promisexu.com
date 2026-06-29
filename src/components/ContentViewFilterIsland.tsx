@@ -46,9 +46,9 @@ function applyView(view: ViewKey) {
   }
 }
 
-export default function ContentViewFilterIsland() {
+export default function ContentViewFilterIsland({ initialView }: { initialView: ViewKey }) {
   useEffect(() => {
-    applyView(readSavedView());
+    applyView(initialView === "all" ? readSavedView() : initialView);
 
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-view-filter] [data-view]"));
     const cleanups = links.map((link) => {
@@ -73,7 +73,7 @@ export default function ContentViewFilterIsland() {
         cleanup();
       }
     };
-  }, []);
+  }, [initialView]);
 
   return null;
 }

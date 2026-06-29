@@ -1,7 +1,8 @@
 ---
 import { render } from "astro:content";
+import LanguageSwitch from "@/components/LanguageSwitch.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getProjects, getProjectUrl, type ProjectEntry } from "@/lib/content";
+import { getProjectCounterpart, getProjects, getProjectUrl, type ProjectEntry } from "@/lib/content";
 import { buildSeo } from "@/lib/seo";
 
 type Props = {
@@ -17,6 +18,9 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const counterpart = await getProjectCounterpart(project);
+const enUrl = project.data.lang === "en" ? getProjectUrl(project) : counterpart && getProjectUrl(counterpart);
+const zhUrl = project.data.lang === "zh" ? getProjectUrl(project) : counterpart && getProjectUrl(counterpart);
 const seo = buildSeo({
   title: project.data.name,
   description: project.data.description,
@@ -33,7 +37,9 @@ const { Content } = await render(project);
       <p>{project.data.description}</p>
     </section>
 
-    <article class="project-detail">
+    <LanguageSwitch activeLanguage={project.data.lang} enUrl={enUrl} zhUrl={zhUrl} />
+
+    <article class="project-detail" lang={project.data.lang}>
       {project.data.image && (
         <img class="project-detail__image" src={project.data.image} alt={`${project.data.name} project preview`} />
       )}

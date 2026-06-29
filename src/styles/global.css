@@ -365,6 +365,16 @@ html[data-content-view="zh"] [data-lang="en"] {
   margin-bottom: 40px;
 }
 
+.language-switch {
+  margin: -16px 0 40px;
+}
+
+.language-switch a[aria-current="page"] {
+  color: var(--color-bg);
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
 .article-header h1 {
   margin: 0 0 16px;
   font-size: clamp(2.2rem, 6vw, 4.5rem);

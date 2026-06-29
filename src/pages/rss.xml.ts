@@ -13,7 +13,8 @@ export async function GET() {
       title: entry.data.title,
       description: entry.data.description,
       pubDate: entry.data.date,
-      link: getWritingUrl(entry)
+      link: getWritingUrl(entry),
+      author: site.author
     }))
   });
 }

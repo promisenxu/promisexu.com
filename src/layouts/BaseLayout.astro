@@ -8,6 +8,8 @@ type Props = {
   title: string;
   description: string;
   canonical: string;
+  author?: string;
+  alternates?: Array<{ lang: "en" | "zh"; href: string }>;
   lang?: "en" | "zh";
   image?: string;
   type?: "website" | "article";
@@ -19,6 +21,8 @@ const {
   title,
   description,
   canonical,
+  author,
+  alternates = [],
   lang = "en",
   image,
   type = "website",
@@ -48,7 +52,11 @@ const viewHrefs = isWritingContext
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {author && <meta name="author" content={author} />}
     <link rel="canonical" href={canonical} />
+    {alternates.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />
+    ))}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />

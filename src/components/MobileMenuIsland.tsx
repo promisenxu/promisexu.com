@@ -37,7 +37,7 @@ export default function MobileMenuIsland({ links, showContentView = true, initia
           ))}
         </nav>
         <form className="search-form" role="search" action="/search/" method="get">
-          <label htmlFor="mobile-site-search">Search</label>
+          <label className="visually-hidden" htmlFor="mobile-site-search">Search</label>
           <input
             id="mobile-site-search"
             type="search"

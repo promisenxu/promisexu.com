@@ -24,7 +24,11 @@ const seo = buildSeo({
       const pagefind = document.createElement("script");
       pagefind.src = "/pagefind/pagefind-ui.js";
       pagefind.onload = () => {
-        const search = new window.PagefindUI({ element: "#search", showSubResults: true });
+        const search = new window.PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          translations: { zero_results: "No result found." }
+        });
         const query = new URLSearchParams(window.location.search).get("q")?.trim();
 
         if (query && typeof search.triggerSearch === "function") {

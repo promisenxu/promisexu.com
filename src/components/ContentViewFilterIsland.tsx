@@ -31,8 +31,11 @@ function applyView(view: ViewKey) {
   document.querySelectorAll<HTMLElement>("[data-lang]").forEach((element) => {
     element.hidden = view !== "all" && element.dataset.lang !== view;
   });
+  const matchingContentCount = document.querySelectorAll(
+    view === "all" ? "[data-lang]" : `[data-lang="${view}"]`
+  ).length;
   document.querySelectorAll<HTMLElement>("[data-empty-for]").forEach((element) => {
-    element.hidden = element.dataset.emptyFor !== view;
+    element.hidden = element.dataset.emptyFor !== view || matchingContentCount > 0;
   });
   document.querySelectorAll<HTMLElement>("[data-home-view]").forEach((element) => {
     element.hidden = element.dataset.homeView !== view;
@@ -68,7 +71,6 @@ export default function ContentViewFilterIsland({ initialView, interceptLinks }:
         }
 
         if (!interceptLinks) {
-          saveView(next);
           return;
         }
 

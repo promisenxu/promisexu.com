@@ -9,7 +9,8 @@ assert.match(homepage, /Object\.entries\(homepageWritings\)[\s\S]*data-home-view
 assert.doesNotMatch(homepage, /const homepageWritings = writings\.slice\(0, 6\)/);
 
 assert.match(filter, /document\.querySelectorAll<HTMLElement>\("\[data-home-view\]"\)[\s\S]*element\.hidden = element\.dataset\.homeView !== view/);
-assert.match(filter, /if \(!interceptLinks\) \{\s*saveView\(next\);\s*return;\s*\}/);
+assert.match(filter, /if \(!interceptLinks\) \{\s*return;\s*\}/);
+assert.doesNotMatch(filter, /if \(!interceptLinks\) \{\s*saveView\(next\)/);
 assert.match(filter, /event\.preventDefault\(\);\s*saveView\(next\);\s*applyView\(next\);/);
 
 console.log("Language view behavior contracts pass.");

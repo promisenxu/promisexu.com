@@ -24,12 +24,12 @@ const showImage = variant !== "row" && entry.data.featureImage;
       <img src={entry.data.featureImage} alt="" loading={variant === "lead" ? "eager" : "lazy"} />
     </a>
   )}
-  <div class="writing-row__label">
-    {showFeaturedTag && entry.data.featured && <span class="tag">Featured</span>}
-  </div>
   <div class="writing-row__body">
     <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
     <p class="writing-row__description">{entry.data.description}</p>
-    <p class="writing-row__meta">{entry.data.category} &middot; <time datetime={date}>{date}</time></p>
+    <p class="writing-row__meta">
+      {showFeaturedTag && entry.data.featured && <><span class="tag">Featured</span> &middot; </>}
+      {entry.data.category} &middot; <time datetime={date}>{date}</time>
+    </p>
   </div>
 </article>

@@ -2,22 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Piazzolla";
-  src: url("/fonts/Piazzolla-VariableFont_opsz,wght.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Piazzolla";
-  src: url("/fonts/Piazzolla-Italic-VariableFont_opsz,wght.woff2") format("woff2");
-  font-style: italic;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 :root {
   color-scheme: light;
   --color-ink: #111111;
@@ -26,8 +10,7 @@
   --color-bg: #ffffff;
   --color-surface: #f6f7f8;
   --color-accent: #1f4f8f;
-  font-family: "Piazzolla", "Songti SC", "STSong", serif;
-  font-optical-sizing: auto;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 html {
@@ -116,14 +99,7 @@ a {
 }
 
 .search-form {
-  display: grid;
-  gap: 8px;
-}
-
-.search-form label {
-  color: var(--color-muted);
-  font-size: 0.82rem;
-  font-weight: 700;
+  display: block;
 }
 
 .search-form input {
@@ -141,6 +117,18 @@ a {
   min-width: 0;
   width: min(100% - 32px, 1060px);
   margin: 0 auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-footer {
@@ -314,10 +302,6 @@ html[data-content-view="zh"] [data-lang="en"] {
   background: var(--color-surface);
 }
 
-.writing-row__label {
-  min-height: 1.5rem;
-}
-
 .writing-row h2,
 .writing-row h3 {
   margin: 0 0 8px;
@@ -340,7 +324,7 @@ html[data-content-view="zh"] [data-lang="en"] {
 }
 
 .writing-row__description {
-  max-width: 68ch;
+  max-width: 76ch;
   margin: 0 0 10px;
   color: var(--color-muted);
   line-height: 1.6;
@@ -357,19 +341,15 @@ html[data-content-view="zh"] [data-lang="en"] {
   font-size: clamp(1.4rem, 2.6vw, 2.1rem);
 }
 
-.writing-row--row .writing-row__label:empty {
-  display: none;
-}
-
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 3px 7px;
+  padding: 1px 5px;
   color: var(--color-muted);
   border: 1px solid var(--color-border);
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 0.68rem;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -607,6 +587,10 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
     padding: 36px clamp(32px, 5vw, 80px) 0;
   }
 
+  .home-masthead {
+    padding-top: 0;
+  }
+
   .writing-stream {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 28px;
@@ -618,12 +602,11 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
   }
 
   .writing-stream .writing-row--lead {
-    grid-template-columns: 92px minmax(0, 1fr);
     padding: 32px 0;
   }
 
   .writing-stream .writing-row--lead.writing-row--with-image {
-    grid-template-columns: minmax(0, 1.15fr) 92px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
 
   .writing-stream .writing-row--tile {
@@ -638,9 +621,4 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
     grid-row: 1 / span 2;
   }
 
-  section:not(.writing-stream) > .writing-row,
-  .writing-stream .writing-row--row {
-    grid-template-columns: 92px minmax(0, 1fr);
-    gap: 24px;
-  }
 }

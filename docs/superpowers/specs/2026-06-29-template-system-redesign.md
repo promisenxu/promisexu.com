@@ -217,10 +217,9 @@ Requirements:
 ## Visual System
 
 - Use a white or near-white global shell.
-- Use Piazzolla, the variable serif used by `gavinouyang.com`, as the primary Latin typeface.
-- Self-host the official open-licensed Piazzolla variable font rather than loading files from the reference site.
-- Use an appropriate system CJK serif fallback for Chinese glyphs; do not assume Piazzolla covers Chinese.
-- Apply the same editorial type family across the shell, listings, headings, and prose unless testing shows a specific utility control needs a system-sans fallback.
+- Use the native system sans-serif stack used by `gavinouyang.com`: `-apple-system`, `system-ui`, `Segoe UI`, Roboto, Oxygen-Sans, Ubuntu, Cantarell, `Helvetica Neue`, sans-serif.
+- Use the same system stack across the shell, listings, headings, prose, and controls.
+- Do not load or self-host a custom global typeface.
 - Create hierarchy through scale, weight, spacing, alignment, and divider rules.
 - Provide moderate breathing room without luxury-brand emptiness.
 - Avoid gradients, global color washes, decorative blobs, and generic card containers.

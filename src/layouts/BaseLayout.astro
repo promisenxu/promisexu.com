@@ -61,7 +61,11 @@ const viewHrefs = isWritingContext
     ))}
   </head>
   <body>
-    {showContentView && <ContentViewFilterIsland client:load initialView={initialView} />}
+    {
+      showContentView && (
+        <ContentViewFilterIsland client:load initialView={initialView} interceptLinks={initialView === "all"} />
+      )
+    }
     <div class="site-shell">
       <SiteNav showContentView={showContentView} initialView={initialView} hrefs={viewHrefs} />
       <div class="site-content">

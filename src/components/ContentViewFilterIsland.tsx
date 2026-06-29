@@ -34,6 +34,9 @@ function applyView(view: ViewKey) {
   document.querySelectorAll<HTMLElement>("[data-empty-for]").forEach((element) => {
     element.hidden = element.dataset.emptyFor !== view;
   });
+  document.querySelectorAll<HTMLElement>("[data-home-view]").forEach((element) => {
+    element.hidden = element.dataset.homeView !== view;
+  });
 
   for (const key of viewKeys) {
     document.querySelectorAll<HTMLElement>(`[data-view="${key}"]`).forEach((element) => {
@@ -55,16 +58,17 @@ export default function ContentViewFilterIsland({ initialView, interceptLinks }:
   useEffect(() => {
     applyView(initialView === "all" ? readSavedView() : initialView);
 
-    if (!interceptLinks) {
-      return;
-    }
-
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-view-filter] [data-view]"));
     const cleanups = links.map((link) => {
       const listener = (event: MouseEvent) => {
         const next = link.dataset.view;
 
         if (!isViewKey(next)) {
+          return;
+        }
+
+        if (!interceptLinks) {
+          saveView(next);
           return;
         }
 

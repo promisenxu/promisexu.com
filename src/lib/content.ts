@@ -40,20 +40,36 @@ export async function getProjects() {
   return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
-function getProjectSlug(entry: ProjectEntry) {
-  return entry.id.replace(/\.(md|mdx)$/, "");
-}
-
 export function getProjectUrl(entry: ProjectEntry) {
-  return `/projects/${getProjectSlug(entry)}/`;
+  return `/projects/${entry.slug}/`;
 }
 
 export async function getProjectBySlug(slug: string) {
   const projects = await getProjects();
-  return projects.find((entry) => getProjectSlug(entry) === slug);
+  return projects.find((entry) => entry.slug === slug);
 }
 
 export function getWritingUrl(entry: WritingEntry) {
   const prefix = entry.data.lang === "zh" ? "/zh" : "/en";
   return `${prefix}/writing/${entry.data.slug}/`;
+}
+
+export async function getWritingCounterpart(entry: WritingEntry) {
+  if (!entry.data.translationKey) return undefined;
+  const writings = await getPublishedWritings();
+  return writings.find(
+    (candidate) =>
+      candidate.data.translationKey === entry.data.translationKey &&
+      candidate.data.lang !== entry.data.lang
+  );
+}
+
+export async function getProjectCounterpart(entry: ProjectEntry) {
+  if (!entry.data.translationKey) return undefined;
+  const projects = await getProjects();
+  return projects.find(
+    (candidate) =>
+      candidate.data.translationKey === entry.data.translationKey &&
+      candidate.data.lang !== entry.data.lang
+  );
 }

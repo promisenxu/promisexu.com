@@ -25,6 +25,7 @@ const writing = defineCollection({
     translationKey: z.string().optional(),
     canonicalUrl: z.string().url().optional(),
     publishedAtExternalUrl: z.string().url().optional(),
+    featureImage: z.string().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false)
   })
@@ -35,6 +36,8 @@ const projects = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    lang: z.enum(["en", "zh"]),
+    translationKey: z.string().optional(),
     role: z.string(),
     status: z.string().optional(),
     image: z.string().optional(),

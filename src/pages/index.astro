@@ -9,6 +9,7 @@ import { buildSeo, personJsonLd, websiteJsonLd } from "@/lib/seo";
 const writings = await getHomepageWritings();
 const homepageWritings = writings.slice(0, 6);
 const projects = (await getProjects()).slice(0, 3);
+const languagePositions = { en: 0, zh: 0 };
 const seo = buildSeo({
   title: "Promise Xu",
   description: "A personal publication for writing on growth, marketing, business, culture, art, film, and the web.",
@@ -25,12 +26,12 @@ const seo = buildSeo({
       <p>Writing and projects across growth, culture, and the web.</p>
     </section>
 
-    <div class="mobile-view-filter">
-      <ContentViewFilter />
-    </div>
-
     <section class="writing-stream" aria-label="Selected writing">
-      {homepageWritings.map((entry) => <WritingCard entry={entry} compact />)}
+      {homepageWritings.map((entry) => {
+        const position = languagePositions[entry.data.lang]++;
+        const variant = position === 0 ? "lead" : position < 3 ? "tile" : "row";
+        return <WritingCard entry={entry} variant={variant} />;
+      })}
     </section>
 
     <section class="home-projects" aria-labelledby="projects-heading">

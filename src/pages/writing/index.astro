@@ -27,16 +27,9 @@ const seo = buildSeo({
       <h1>Writing</h1>
       <p>Essays, criticism, notes, and published work across English and Chinese.</p>
     </section>
-    <div class="archive-language-mobile">
-      <ContentViewFilter
-        selected="all"
-        label="View writing"
-        hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
-      />
-    </div>
     <ArchiveControls />
     <section aria-label="All writing">
-      {writings.map((entry) => <WritingCard entry={entry} />)}
+      {writings.map((entry) => <WritingCard entry={entry} variant="row" />)}
     </section>
   </main>
 </BaseLayout>

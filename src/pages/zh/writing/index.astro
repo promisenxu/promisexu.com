@@ -27,16 +27,9 @@ const seo = buildSeo({
       <h1>中文写作</h1>
       <p>中文文章、评论和笔记。</p>
     </section>
-    <div class="archive-language-mobile">
-      <ContentViewFilter
-        selected="zh"
-        label="View writing"
-        hrefs={{ all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }}
-      />
-    </div>
     <ArchiveControls />
     <section aria-label="Chinese writing">
-      {writings.map((entry) => <WritingCard entry={entry} />)}
+      {writings.map((entry) => <WritingCard entry={entry} variant="row" />)}
     </section>
   </main>
 </BaseLayout>

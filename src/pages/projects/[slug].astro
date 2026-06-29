@@ -1,4 +1,5 @@
 ---
+import { render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getProjects, getProjectUrl, type ProjectEntry } from "@/lib/content";
 import { buildSeo } from "@/lib/seo";
@@ -21,7 +22,7 @@ const seo = buildSeo({
   description: project.data.description,
   path: getProjectUrl(project)
 });
-const { Content } = await project.render();
+const { Content } = await render(project);
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical}>

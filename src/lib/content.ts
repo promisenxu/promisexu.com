@@ -41,12 +41,12 @@ export async function getProjects() {
 }
 
 export function getProjectUrl(entry: ProjectEntry) {
-  return `/projects/${entry.slug}/`;
+  return `/projects/${entry.data.slug}/`;
 }
 
 export async function getProjectBySlug(slug: string) {
   const projects = await getProjects();
-  return projects.find((entry) => entry.slug === slug);
+  return projects.find((entry) => entry.data.slug === slug);
 }
 
 export function getWritingUrl(entry: WritingEntry) {

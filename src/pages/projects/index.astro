@@ -5,6 +5,14 @@ import { getProjects } from "@/lib/content";
 import { buildSeo } from "@/lib/seo";
 
 const projects = await getProjects();
+const views = [
+  { key: "all", label: "No projects are available yet." },
+  { key: "en", label: "No projects are available in English yet." },
+  { key: "zh", label: "No projects are available in Chinese yet." }
+] as const;
+const emptyViews = views.filter(({ key }) =>
+  key === "all" ? projects.length === 0 : !projects.some((project) => project.data.lang === key)
+);
 const seo = buildSeo({
   title: "Projects",
   description: "Selected project work by Promise Xu.",
@@ -21,5 +29,8 @@ const seo = buildSeo({
     <section class="project-list" aria-label="Selected work">
       {projects.map((project) => <ProjectCard project={project} />)}
     </section>
+    {emptyViews.map(({ key, label }) => (
+      <p class="filtered-empty" data-empty-for={key} hidden>{label}</p>
+    ))}
   </main>
 </BaseLayout>

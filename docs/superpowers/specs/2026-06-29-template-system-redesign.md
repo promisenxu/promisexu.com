@@ -221,6 +221,8 @@ Requirements:
 - Use the same system stack across the shell, listings, headings, prose, and controls.
 - Do not load or self-host a custom global typeface.
 - Create hierarchy through scale, weight, spacing, alignment, and divider rules.
+- Use sharp corners for buttons, filters, tags, and text fields; rounded controls are outside the core visual language.
+- In the homepage `All` view, collapse translation pairs to the English entry and show `Also in 中文 →` when a Chinese counterpart exists.
 - Provide moderate breathing room without luxury-brand emptiness.
 - Avoid gradients, global color washes, decorative blobs, and generic card containers.
 - Allow explicit feature images, project images, and local page content to introduce color.

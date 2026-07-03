@@ -105,10 +105,11 @@ a {
 .search-form input {
   box-sizing: border-box;
   width: 100%;
-  padding: 9px 10px;
+  padding: 9px 0 7px;
   color: var(--color-ink);
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
   border-radius: 0;
   font: inherit;
 }
@@ -154,6 +155,12 @@ main {
   letter-spacing: 0;
 }
 
+.home-masthead h1,
+.page-header h1 {
+  font-family: inherit;
+  font-weight: 800;
+}
+
 .home-masthead p {
   margin: 0;
   color: var(--color-muted);
@@ -185,7 +192,7 @@ main {
   color: var(--color-muted);
   background: transparent;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: 0;
   font: inherit;
   font-size: 0.85rem;
   text-decoration: none;
@@ -273,7 +280,7 @@ html[data-content-view="zh"] [data-lang="en"] {
   padding: 6px 10px;
   color: var(--color-muted);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: 0;
   text-decoration: none;
 }
 
@@ -332,7 +339,7 @@ html[data-content-view="zh"] [data-lang="en"] {
 
 .writing-row--lead h2,
 .writing-row--lead h3 {
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.02;
 }
 
@@ -347,10 +354,19 @@ html[data-content-view="zh"] [data-lang="en"] {
   padding: 1px 5px;
   color: var(--color-muted);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: 0;
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.translation-link {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+button {
+  border-radius: 0;
 }
 
 .article-shell {
@@ -588,6 +604,10 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
   }
 
   .home-masthead {
+    padding-top: 0;
+  }
+
+  .page-header {
     padding-top: 0;
   }
 

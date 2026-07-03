@@ -10,6 +10,7 @@ const writingCard = await read("src/components/WritingCard.astro");
 const archive = await read("src/pages/writing/index.astro");
 const categoryArchive = await read("src/pages/writing/category/[category].astro");
 const search = await read("src/pages/search.astro");
+const homepage = await read("src/pages/index.astro");
 
 assert.match(css, /font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif/);
 assert.doesNotMatch(css, /Piazzolla/);
@@ -22,5 +23,11 @@ assert.match(archive, /<h1>Writing<\/h1>/);
 assert.doesNotMatch(filter, /if \(!interceptLinks\) \{\s*saveView\(next\)/);
 assert.match(filter, /matchingContentCount/);
 assert.match(search, /zero_results: "No result found\."/);
+assert.match(homepage, /englishTranslationKeys/);
+assert.match(writingCard, /Also in 中文|alternateLabel/);
+assert.match(css, /\.view-filter a[\s\S]*border-radius: 0/);
+assert.match(css, /\.search-form input[\s\S]*border-bottom: 1px solid/);
+assert.match(css, /\.home-masthead \{\s*padding-top: 0/);
+assert.match(css, /\.page-header \{\s*padding-top: 0/);
 
 console.log("UI refinement contracts pass.");

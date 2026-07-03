@@ -7,8 +7,25 @@ import { getHomepageWritings, getProjects } from "@/lib/content";
 import { buildSeo, personJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const writings = await getHomepageWritings();
+const englishTranslationKeys = new Set(
+  writings
+    .filter((entry) => entry.data.lang === "en" && entry.data.translationKey)
+    .map((entry) => entry.data.translationKey)
+);
+const chineseByTranslationKey = new Map(
+  writings
+    .filter((entry) => entry.data.lang === "zh" && entry.data.translationKey)
+    .map((entry) => [entry.data.translationKey, entry])
+);
 const homepageWritings = {
-  all: writings.slice(0, 6),
+  all: writings
+    .filter(
+      (entry) =>
+        entry.data.lang === "en" ||
+        !entry.data.translationKey ||
+        !englishTranslationKeys.has(entry.data.translationKey)
+    )
+    .slice(0, 6),
   en: writings.filter((entry) => entry.data.lang === "en").slice(0, 6),
   zh: writings.filter((entry) => entry.data.lang === "zh").slice(0, 6)
 };
@@ -36,7 +53,18 @@ const seo = buildSeo({
           {entries.map((entry) => {
             const position = languagePositions[entry.data.lang]++;
             const variant = position === 0 ? "lead" : position < 3 ? "tile" : "row";
-            return <WritingCard entry={entry} variant={variant} />;
+            const chineseCounterpart =
+              view === "all" && entry.data.translationKey
+                ? chineseByTranslationKey.get(entry.data.translationKey)
+                : undefined;
+            return (
+              <WritingCard
+                entry={entry}
+                variant={variant}
+                alternateUrl={chineseCounterpart ? `/zh/writing/${chineseCounterpart.data.slug}/` : undefined}
+                alternateLabel={chineseCounterpart ? "Also in 中文 →" : undefined}
+              />
+            );
           })}
         </section>
       );

@@ -6,9 +6,18 @@ type Props = {
   headingLevel?: "h2" | "h3";
   variant?: "lead" | "tile" | "row";
   showFeaturedTag?: boolean;
+  alternateUrl?: string;
+  alternateLabel?: string;
 };
 
-const { entry, headingLevel = "h2", variant = "row", showFeaturedTag = true } = Astro.props;
+const {
+  entry,
+  headingLevel = "h2",
+  variant = "row",
+  showFeaturedTag = true,
+  alternateUrl,
+  alternateLabel
+} = Astro.props;
 const Heading = headingLevel;
 const date = entry.data.date.toISOString().slice(0, 10);
 const showImage = variant !== "row" && entry.data.featureImage;
@@ -28,6 +37,9 @@ const showImage = variant !== "row" && entry.data.featureImage;
     <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
     <p class="writing-row__description">{entry.data.description}</p>
     <p class="writing-row__meta">
+      {alternateUrl && alternateLabel && (
+        <><a class="translation-link" href={alternateUrl} hreflang="zh">{alternateLabel}</a> &middot; </>
+      )}
       {showFeaturedTag && entry.data.featured && <><span class="tag">Featured</span> &middot; </>}
       {entry.data.category} &middot; <time datetime={date}>{date}</time>
     </p>

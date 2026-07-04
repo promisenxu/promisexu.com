@@ -45,6 +45,7 @@ export default function MobileMenuIsland({ links, showContentView = true, initia
             placeholder="Search"
             autoComplete="off"
           />
+          <button type="submit" aria-label="Submit search">→</button>
         </form>
         {showContentView && (
           <div className="view-filter mobile-menu__view" data-view-filter>

@@ -10,18 +10,23 @@ const seo = buildSeo({
 ---
 
 <BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} jsonLd={[personJsonLd()]}>
-  <main class="about">
-    <section class="prose about__section" data-lang="en" lang="en">
-      <h1>About Promise Xu</h1>
-      <p>Promise Xu writes about growth, marketing, business, culture, art, film, and the web.</p>
-      <p>He also builds and studies products, with selected work including Valhalla, FriendUp, and Klido.</p>
-      <p><a href="/writing/">Read the writing</a> or <a href="/projects/">view selected projects</a>.</p>
+  <main>
+    <section class="page-header">
+      <h1>About</h1>
     </section>
-    <section class="prose about__section" data-lang="zh" lang="zh">
-      <h1>关于 Promise Xu</h1>
-      <p>Promise Xu 写作的主题包括增长、营销、商业、文化、艺术、电影和互联网。</p>
-      <p>他也开发和研究产品，作品包括 Valhalla、FriendUp 和 Klido。</p>
-      <p><a href="/zh/writing/">阅读中文文章</a>，或<a href="/projects/">查看项目</a>。</p>
-    </section>
+    <div class="about">
+      <section class="prose about__section" data-lang="en" lang="en">
+        <h2>About Promise Xu</h2>
+        <p>Promise Xu writes about growth, marketing, business, culture, art, film, and the web.</p>
+        <p>He also builds and studies products, with selected work including Valhalla, FriendUp, and Klido.</p>
+        <p><a href="/writing/">Read the writing</a> or <a href="/projects/">view selected projects</a>.</p>
+      </section>
+      <section class="prose about__section" data-lang="zh" lang="zh">
+        <h2>关于 Promise Xu</h2>
+        <p>Promise Xu 写作的主题包括增长、营销、商业、文化、艺术、电影和互联网。</p>
+        <p>他也开发和研究产品，作品包括 Valhalla、FriendUp 和 Klido。</p>
+        <p><a href="/zh/writing/">阅读中文文章</a>，或<a href="/projects/">查看项目</a>。</p>
+      </section>
+    </div>
   </main>
 </BaseLayout>

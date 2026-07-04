@@ -7,6 +7,22 @@ import { getPublishedWritings } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
 
 const writings = await getPublishedWritings();
+const englishTranslationKeys = new Set(
+  writings
+    .filter((entry) => entry.data.lang === "en" && entry.data.translationKey)
+    .map((entry) => entry.data.translationKey)
+);
+const chineseByTranslationKey = new Map(
+  writings
+    .filter((entry) => entry.data.lang === "zh" && entry.data.translationKey)
+    .map((entry) => [entry.data.translationKey, entry])
+);
+const allWritings = writings.filter(
+  (entry) =>
+    entry.data.lang === "en" ||
+    !entry.data.translationKey ||
+    !englishTranslationKeys.has(entry.data.translationKey)
+);
 const seo = buildSeo({
   title: "Writing",
   description: "All writing by Promise Xu across English and Chinese.",
@@ -29,7 +45,19 @@ const seo = buildSeo({
     </section>
     <ArchiveControls />
     <section aria-label="All writing">
-      {writings.map((entry) => <WritingCard entry={entry} variant="row" />)}
+      {allWritings.map((entry) => {
+        const chineseCounterpart = entry.data.translationKey
+          ? chineseByTranslationKey.get(entry.data.translationKey)
+          : undefined;
+        return (
+          <WritingCard
+            entry={entry}
+            variant="row"
+            alternateUrl={chineseCounterpart ? `/zh/writing/${chineseCounterpart.data.slug}/` : undefined}
+            alternateLabel={chineseCounterpart ? "Also in 中文 →" : undefined}
+          />
+        );
+      })}
     </section>
   </main>
 </BaseLayout>

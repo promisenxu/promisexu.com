@@ -40,6 +40,9 @@ function applyView(view: ViewKey) {
   document.querySelectorAll<HTMLElement>("[data-home-view]").forEach((element) => {
     element.hidden = element.dataset.homeView !== view;
   });
+  document.querySelectorAll<HTMLElement>("[data-view-only]").forEach((element) => {
+    element.hidden = element.dataset.viewOnly !== view;
+  });
 
   for (const key of viewKeys) {
     document.querySelectorAll<HTMLElement>(`[data-view="${key}"]`).forEach((element) => {

@@ -11,9 +11,10 @@ type Props = {
 
 const { entry } = Astro.props;
 const url = getWritingUrl(entry);
+const description = entry.data.seoDescription ?? site.description;
 const seo = buildSeo({
   title: entry.data.title,
-  description: entry.data.description,
+  description,
   path: url,
   canonical: entry.data.canonicalUrl,
   type: "article"
@@ -21,7 +22,7 @@ const seo = buildSeo({
 const counterpart = await getWritingCounterpart(entry);
 const counterpartCanonical = counterpart && buildSeo({
   title: counterpart.data.title,
-  description: counterpart.data.description,
+  description: counterpart.data.seoDescription ?? site.description,
   path: getWritingUrl(counterpart),
   canonical: counterpart.data.canonicalUrl,
   type: "article"
@@ -39,7 +40,7 @@ const updatedDate = entry.data.updated?.toISOString().slice(0, 10);
 const jsonLd = [
   articleJsonLd({
     title: entry.data.title,
-    description: entry.data.description,
+    description,
     url: seo.canonical,
     datePublished: entry.data.date,
     dateModified: entry.data.updated,
@@ -65,7 +66,6 @@ const jsonLd = [
       <header class="article-header">
         <p class="eyebrow">{entry.data.category}</p>
         <h1>{entry.data.title}</h1>
-        <p class="dek">{entry.data.description}</p>
         <p class="meta">
           Published <time datetime={publishedDate}>{publishedDate}</time>
           {updatedDate && <> &middot; Updated <time datetime={updatedDate}>{updatedDate}</time></>}

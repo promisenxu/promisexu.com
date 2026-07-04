@@ -12,7 +12,7 @@ export async function GET() {
     xmlns: { dc: "http://purl.org/dc/elements/1.1/" },
     items: writings.map((entry) => ({
       title: entry.data.title,
-      description: entry.data.description,
+      description: entry.data.seoDescription ?? site.description,
       pubDate: entry.data.date,
       link: getWritingUrl(entry),
       customData: `<dc:creator>${site.author}</dc:creator>`

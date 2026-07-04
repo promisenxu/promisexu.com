@@ -8,6 +8,7 @@ type Props = {
   showFeaturedTag?: boolean;
   alternateUrl?: string;
   alternateLabel?: string;
+  homepage?: boolean;
 };
 
 const {
@@ -16,10 +17,15 @@ const {
   variant = "row",
   showFeaturedTag = true,
   alternateUrl,
-  alternateLabel
+  alternateLabel,
+  homepage = false
 } = Astro.props;
 const Heading = headingLevel;
 const date = entry.data.date.toISOString().slice(0, 10);
+const dateLabel =
+  entry.data.date.getUTCFullYear() === new Date().getUTCFullYear()
+    ? entry.data.date.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" })
+    : String(entry.data.date.getUTCFullYear());
 const showImage = variant !== "row" && entry.data.featureImage;
 ---
 
@@ -34,14 +40,35 @@ const showImage = variant !== "row" && entry.data.featureImage;
     </a>
   )}
   <div class="writing-row__body">
-    <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
-    <p class="writing-row__description">{entry.data.description}</p>
-    <p class="writing-row__meta">
-      {showFeaturedTag && entry.data.featured && <><span class="tag">Featured</span> &middot; </>}
-      {entry.data.category} &middot; <time datetime={date}>{date}</time>
-      {alternateUrl && alternateLabel && (
-        <> &middot; <a class="translation-link" href={alternateUrl} hreflang="zh">{alternateLabel}</a></>
-      )}
-    </p>
+    {homepage ? (
+      <>
+        <div class="writing-row__title-line">
+          <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
+          <time class="writing-row__meta" datetime={date}>{dateLabel}</time>
+        </div>
+        {(showFeaturedTag && entry.data.featured || alternateUrl && alternateLabel) && (
+          <p class="writing-row__flags">
+            {showFeaturedTag && entry.data.featured && <span class="tag">Featured</span>}
+            {alternateUrl && alternateLabel && (
+              <span data-view-only="all">
+                {showFeaturedTag && entry.data.featured && <> &middot; </>}
+                <a class="translation-link" href={alternateUrl} hreflang="zh">{alternateLabel}</a>
+              </span>
+            )}
+          </p>
+        )}
+      </>
+    ) : (
+      <>
+        <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
+        <p class="writing-row__meta">
+          {showFeaturedTag && entry.data.featured && <><span class="tag">Featured</span> &middot; </>}
+          {entry.data.category} &middot; <time datetime={date}>{date}</time>
+          {alternateUrl && alternateLabel && (
+            <span data-view-only="all"> &middot; <a class="translation-link" href={alternateUrl} hreflang="zh">{alternateLabel}</a></span>
+          )}
+        </p>
+      </>
+    )}
   </div>
 </article>

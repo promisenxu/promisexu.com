@@ -90,7 +90,7 @@ Writing frontmatter:
 
 ```yaml
 title: ""
-description: ""
+seoDescription: "" # optional; metadata and RSS only
 lang: "en" # en | zh
 date: "2026-06-22"
 updated: "2026-06-22"
@@ -111,6 +111,7 @@ Model rules:
 - Keep `translationKey` optional and only for true counterparts.
 - Keep `canonicalUrl` for republished or external-origin pieces.
 - Keep `publishedAtExternalUrl` as separate provenance metadata.
+- Keep `seoDescription` optional and out of visible article templates.
 - Keep `draft` from day one even before Keystatic.
 
 Projects should use a separate content collection or structured data file. The project model should allow uneven completeness because first-launch project content will be thin.

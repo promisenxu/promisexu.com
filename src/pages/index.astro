@@ -47,12 +47,9 @@ const seo = buildSeo({
     </section>
 
     {Object.entries(homepageWritings).map(([view, entries]) => {
-      const languagePositions = { en: 0, zh: 0 };
       return (
         <section class="writing-stream" aria-label="Selected writing" data-home-view={view} hidden={view !== "all"}>
           {entries.map((entry) => {
-            const position = languagePositions[entry.data.lang]++;
-            const variant = position === 0 ? "lead" : position < 3 ? "tile" : "row";
             const chineseCounterpart =
               view === "all" && entry.data.translationKey
                 ? chineseByTranslationKey.get(entry.data.translationKey)
@@ -60,7 +57,8 @@ const seo = buildSeo({
             return (
               <WritingCard
                 entry={entry}
-                variant={variant}
+                variant="row"
+                homepage
                 alternateUrl={chineseCounterpart ? `/zh/writing/${chineseCounterpart.data.slug}/` : undefined}
                 alternateLabel={chineseCounterpart ? "Also in 中文 →" : undefined}
               />

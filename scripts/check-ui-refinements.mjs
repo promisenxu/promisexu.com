@@ -12,6 +12,9 @@ const categoryArchive = await read("src/pages/writing/category/[category].astro"
 const search = await read("src/pages/search.astro");
 const homepage = await read("src/pages/index.astro");
 const about = await read("src/pages/about.astro");
+const contentConfig = await read("src/content/config.ts");
+const articleLayout = await read("src/layouts/ArticleLayout.astro");
+const rss = await read("src/pages/rss.xml.ts");
 
 assert.match(css, /font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif/);
 assert.doesNotMatch(css, /Piazzolla/);
@@ -36,5 +39,24 @@ assert.match(writingCard, /<time[\s\S]*alternateUrl/);
 assert.match(archive, /englishTranslationKeys/);
 assert.match(archive, /alternateLabel=\{chineseCounterpart \? "Also in 中文 →" : undefined\}/);
 assert.match(about, /<section class="page-header">[\s\S]*<h1>About<\/h1>/);
+assert.doesNotMatch(contentConfig, /title: z\.string\(\),\s*description: z\.string\(\),\s*lang:/);
+assert.match(contentConfig, /seoDescription: z\.string\(\)\.optional\(\)/);
+assert.doesNotMatch(writingCard, /entry\.data\.description/);
+assert.match(writingCard, /homepage/);
+assert.match(writingCard, /month: "short", day: "numeric"/);
+assert.match(writingCard, /entry\.data\.date\.getUTCFullYear\(\) === new Date\(\)\.getUTCFullYear\(\)/);
+assert.match(writingCard, /data-view-only="all"/);
+assert.match(filter, /\[data-view-only\]/);
+assert.doesNotMatch(articleLayout, /class="dek"/);
+assert.match(articleLayout, /entry\.data\.seoDescription \?\? site\.description/);
+assert.match(rss, /entry\.data\.seoDescription \?\? site\.description/);
+assert.match(homepage, /homepage/);
+assert.match(css, /\.writing-stream[\s\S]*grid-template-columns: 1fr/);
+assert.match(css, /\.writing-stream \.writing-row[\s\S]*border-bottom: 0/);
+assert.match(writingCard, /writing-row__title-line[\s\S]*<time[\s\S]*writing-row__flags/);
+assert.match(writingCard, /writing-row__flags[\s\S]*Featured[\s\S]*alternateUrl/);
+assert.match(css, /\.home-masthead \{[\s\S]*padding: 24px 0 56px/);
+assert.match(css, /\.home-projects \{[\s\S]*margin-top: 80px/);
+assert.match(css, /a:hover \{\s*text-decoration-thickness: 1px/);
 
 console.log("UI refinement contracts pass.");

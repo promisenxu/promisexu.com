@@ -15,7 +15,7 @@ const writing = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    seoDescription: z.string().optional(),
     lang: z.enum(["en", "zh"]),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),

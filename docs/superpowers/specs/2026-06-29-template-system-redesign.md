@@ -97,14 +97,12 @@ Writing and projects across growth, culture, and the web.
 
 Writing hierarchy:
 
-- an explicitly featured article leads within the active view;
-- when no featured article is available, the newest article leads;
-- the lead may receive a larger title, wider span, and explicit feature image;
-- following articles use a controlled mix of smaller editorial tiles and compact rows;
+- all articles use equal-width rows;
+- article titles use a compact title/date line;
 - featured remains a subtle item label, not a separate section;
 - writing remains dominant over projects.
 
-Writing metadata on the homepage includes category and date. It does not display content language.
+Writing metadata on the homepage includes a compact date and optional translation link. It does not display category or content language.
 
 ### Feature Images
 
@@ -133,7 +131,7 @@ Writing archives remain retrieval surfaces rather than curated editorial pages.
 
 - Use dense, uniform chronological rows.
 - Do not use a lead item or varied homepage grid.
-- Prioritize title, description, category, and date.
+- Prioritize title, category, and date.
 - Do not display content language in row metadata.
 - Keep category controls in the main canvas.
 - Use the global rail `View` control for content-language filtering.
@@ -168,7 +166,6 @@ The article template uses:
 
 - an optional category eyebrow;
 - title;
-- description or dek;
 - publication and optional update date;
 - an optional local language-counterpart switch;
 - a reading column around `68-74ch`;
@@ -176,7 +173,7 @@ The article template uses:
 
 Article headers and listing metadata do not display `EN` or `中文`.
 
-When a language counterpart exists, render a simple `EN / 中文` switch between the title/description metadata block and the article body. It:
+When a language counterpart exists, render a simple `EN / 中文` switch between the title metadata block and the article body. It:
 
 - uses the visual language of the global `View` control;
 - omits the `View` label and `All` option;

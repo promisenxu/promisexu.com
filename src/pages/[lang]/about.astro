@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buildSeo, personJsonLd } from "@/lib/seo";
+import type { ContentLanguage } from "@/lib/site";
+
+export function getStaticPaths() {
+  return ["en", "zh"].map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: ContentLanguage };
+const path = `/${lang}/about/`;
+const seo = buildSeo({
+  title: "About",
+  description: "About Promise Xu, his writing, projects, and selected work.",
+  path
+});
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  lang={lang}
+  jsonLd={[personJsonLd()]}
+>
+  <main>
+    <section class="page-header">
+      <h1>About</h1>
+    </section>
+    <div class="about">
+      {lang === "en" ? (
+        <section class="prose about__section" lang="en">
+          <h2>About Promise Xu</h2>
+          <p>Promise Xu writes about growth, marketing, business, culture, art, film, and the web.</p>
+          <p>He also builds and studies products, with selected work including Valhalla, FriendUp, and Klido.</p>
+          <p><a href="/en/writing/">Read the writing</a> or <a href="/en/projects/">view selected projects</a>.</p>
+        </section>
+      ) : (
+        <section class="prose about__section" lang="zh">
+          <h2>关于 Promise Xu</h2>
+          <p>Promise Xu 写作的主题包括增长、营销、商业、文化、艺术、电影和互联网。</p>
+          <p>他也开发和研究产品，作品包括 Valhalla、FriendUp 和 Klido。</p>
+          <p><a href="/zh/writing/">阅读中文文章</a>，或<a href="/zh/projects/">查看项目</a>。</p>
+        </section>
+      )}
+    </div>
+  </main>
+</BaseLayout>

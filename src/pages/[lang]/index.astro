@@ -1,0 +1,57 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import WritingCard from "@/components/WritingCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getHomepageWritings, getProjects } from "@/lib/content";
+import { buildSeo, personJsonLd, websiteJsonLd } from "@/lib/seo";
+import type { ContentLanguage } from "@/lib/site";
+
+export function getStaticPaths() {
+  return ["en", "zh"].map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: ContentLanguage };
+const writings = (await getHomepageWritings())
+  .filter((entry) => entry.data.lang === lang)
+  .slice(0, 6);
+const projects = (await getProjects())
+  .filter((project) => project.data.lang === lang)
+  .slice(0, 3);
+const path = `/${lang}/`;
+const seo = buildSeo({
+  title: "Promise Xu",
+  description: "A personal publication for writing on growth, marketing, business, culture, art, film, and the web.",
+  path
+});
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  lang={lang}
+  jsonLd={[personJsonLd(), websiteJsonLd()]}
+>
+  <main>
+    <section class="home-masthead">
+      <h1>PROMISE XU</h1>
+      <p>Writing and projects across growth, culture, and the web.</p>
+    </section>
+
+    <section class="writing-stream" aria-label="Selected writing">
+      {writings.map((entry) => <WritingCard entry={entry} variant="row" homepage />)}
+    </section>
+
+    <section class="home-projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="project-list">
+        {projects.map((project) => <ProjectCard project={project} compact />)}
+      </div>
+      {projects.length === 0 && (
+        <p class="filtered-empty">
+          {lang === "zh" ? "No projects are available in Chinese yet." : "No projects are available in English yet."}
+        </p>
+      )}
+    </section>
+  </main>
+</BaseLayout>

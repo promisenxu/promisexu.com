@@ -31,18 +31,22 @@ const {
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
-const initialView = pathname.startsWith("/en/writing/")
+const initialView = pathname.startsWith("/en/")
   ? "en"
-  : pathname.startsWith("/zh/writing/")
+  : pathname.startsWith("/zh/")
     ? "zh"
     : "all";
-const isWritingContext =
-  pathname.startsWith("/writing/") ||
-  pathname.startsWith("/en/writing/") ||
-  pathname.startsWith("/zh/writing/");
-const viewHrefs = isWritingContext
-  ? { all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }
-  : { all: pathname, en: "/en/writing/", zh: "/zh/writing/" };
+const contentPath = initialView === "all" ? pathname : pathname.slice(3);
+const scopedViewHrefs = {
+  "/": { all: "/", en: "/en/", zh: "/zh/" },
+  "/projects/": { all: "/projects/", en: "/en/projects/", zh: "/zh/projects/" },
+  "/about/": { all: "/about/", en: "/en/about/", zh: "/zh/about/" }
+} as const;
+const viewHrefs =
+  scopedViewHrefs[contentPath as keyof typeof scopedViewHrefs] ??
+  (contentPath.startsWith("/writing/")
+    ? { all: "/writing/", en: "/en/writing/", zh: "/zh/writing/" }
+    : { all: pathname, en: "/en/writing/", zh: "/zh/writing/" });
 ---
 
 <!doctype html>

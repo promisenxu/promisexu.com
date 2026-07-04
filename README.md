@@ -7,13 +7,16 @@ Personal publication, writing archive, and lightweight proof system for Promise 
 The first public launch is a publication core with light proof:
 
 - Publication-style homepage.
+- `/en/` and `/zh/` as language-scoped homepage views.
 - `/writing/` as the canonical all-language archive.
 - `/en/writing/` and `/zh/writing/` as language-scoped archives.
 - `/en/writing/[slug]/` and `/zh/writing/[slug]/` as language-scoped article routes.
 - Category-led writing navigation using Growth, Marketing & Business; Culture, Art & Film; and Misc.
 - Pagefind search exposed through the global navigation.
 - Project gallery and project detail pages for Valhalla, FriendUp, and Klido.
+- `/en/projects/` and `/zh/projects/` as language-scoped project galleries.
 - `/about/` as an author/positioning page.
+- `/en/about/` and `/zh/about/` as language-scoped About views.
 - SEO and AEO foundations.
 
 ## Stack

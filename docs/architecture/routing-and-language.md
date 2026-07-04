@@ -4,6 +4,8 @@
 
 ```txt
 /                         publication-style homepage
+/en/                     English-only homepage
+/zh/                     Chinese-only homepage
 /writing/                 canonical all-writing archive
 /writing/category/[category]/ static category archive for approved category slugs
 /en/writing/              English-only archive
@@ -11,8 +13,12 @@
 /zh/writing/              Chinese-only archive
 /zh/writing/[slug]/       Chinese article
 /projects/                project gallery
+/en/projects/             English-only project gallery
+/zh/projects/             Chinese-only project gallery
 /projects/[slug]/         internal project detail page
 /about/                   author positioning page
+/en/about/                English-only about page
+/zh/about/                Chinese-only about page
 /search/                  Pagefind search results and no-JS fallback
 ```
 
@@ -32,6 +38,7 @@ Generated utility routes:
 - `/en/writing/` and `/zh/writing/` are language-scoped archive views.
 - Article URLs are language-scoped.
 - Route language means content language.
+- Homepage, projects, and about language controls have static scoped routes and work without JavaScript.
 - UI localization is deferred.
 - The homepage `View / All / EN / 中文` control is a content-view preference, not a UI language switch.
 - Desktop writing archive language controls live in the rail; mobile language controls remain visible above archive content.

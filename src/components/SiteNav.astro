@@ -13,15 +13,17 @@ type Props = {
 
 const { showContentView = true, initialView, hrefs } = Astro.props;
 
+const scopePrefix = initialView === "all" ? "" : `/${initialView}`;
 const links = [
-  { href: "/writing/", label: "Writing" },
-  { href: "/projects/", label: "Projects" },
-  { href: "/about/", label: "About" }
+  { href: `${scopePrefix}/writing/`, label: "Writing" },
+  { href: `${scopePrefix}/projects/`, label: "Projects" },
+  { href: `${scopePrefix}/about/`, label: "About" }
 ];
+const homeUrl = `${scopePrefix}/`;
 ---
 
 <header class="mobile-header">
-  <a class="site-brand" href="/">PROMISE XU</a>
+  <a class="site-brand" href={homeUrl}>PROMISE XU</a>
   <MobileMenuIsland
     client:only="react"
     links={links}
@@ -33,7 +35,7 @@ const links = [
 
 <aside class="site-rail" aria-label="Site navigation">
   <div class="site-rail__top">
-    <a class="site-brand site-brand--rail" href="/">
+    <a class="site-brand site-brand--rail" href={homeUrl}>
       <span>PROMISE</span>
       <span>XU</span>
     </a>

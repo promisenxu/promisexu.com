@@ -1,0 +1,37 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getProjects } from "@/lib/content";
+import { buildSeo } from "@/lib/seo";
+import type { ContentLanguage } from "@/lib/site";
+
+export function getStaticPaths() {
+  return ["en", "zh"].map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: ContentLanguage };
+const projects = (await getProjects()).filter((project) => project.data.lang === lang);
+const path = `/${lang}/projects/`;
+const seo = buildSeo({
+  title: "Projects",
+  description: "Selected project work by Promise Xu.",
+  path
+});
+---
+
+<BaseLayout title={seo.title} description={seo.description} canonical={seo.canonical} lang={lang}>
+  <main>
+    <section class="page-header">
+      <h1>Projects</h1>
+      <p>Selected work, shown as visual proof rather than exhaustive case studies.</p>
+    </section>
+    <section class="project-list" aria-label="Selected work">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </section>
+    {projects.length === 0 && (
+      <p class="filtered-empty">
+        {lang === "zh" ? "No projects are available in Chinese yet." : "No projects are available in English yet."}
+      </p>
+    )}
+  </main>
+</BaseLayout>

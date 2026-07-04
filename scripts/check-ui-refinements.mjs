@@ -15,6 +15,9 @@ const about = await read("src/pages/about.astro");
 const contentConfig = await read("src/content/config.ts");
 const articleLayout = await read("src/layouts/ArticleLayout.astro");
 const rss = await read("src/pages/rss.xml.ts");
+const packageJson = JSON.parse(await read("package.json"));
+const baseLayout = await read("src/layouts/BaseLayout.astro");
+const siteNav = await read("src/components/SiteNav.astro");
 
 assert.match(css, /font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif/);
 assert.doesNotMatch(css, /Piazzolla/);
@@ -41,6 +44,8 @@ assert.match(archive, /alternateLabel=\{chineseCounterpart \? "Also in 中文 �
 assert.match(about, /<section class="page-header">[\s\S]*<h1>About<\/h1>/);
 assert.doesNotMatch(contentConfig, /title: z\.string\(\),\s*description: z\.string\(\),\s*lang:/);
 assert.match(contentConfig, /seoDescription: z\.string\(\)\.optional\(\)/);
+assert.match(contentConfig, /const projects = defineCollection\(\{\s*loader: glob\(\{/);
+assert.doesNotMatch(contentConfig, /const projects = defineCollection\(\{\s*type: "content"/);
 assert.doesNotMatch(writingCard, /entry\.data\.description/);
 assert.match(writingCard, /homepage/);
 assert.match(writingCard, /month: "short", day: "numeric"/);
@@ -58,5 +63,8 @@ assert.match(writingCard, /writing-row__flags[\s\S]*Featured[\s\S]*alternateUrl/
 assert.match(css, /\.home-masthead \{[\s\S]*padding: 24px 0 56px/);
 assert.match(css, /\.home-projects \{[\s\S]*margin-top: 80px/);
 assert.match(css, /a:hover \{\s*text-decoration-thickness: 1px/);
+assert.equal(packageJson.dependencies["@astrojs/react"], "4.4.2");
+assert.match(baseLayout, /ContentViewFilterIsland client:only="react"/);
+assert.match(siteNav, /MobileMenuIsland[\s\S]*client:only="react"/);
 
 console.log("UI refinement contracts pass.");

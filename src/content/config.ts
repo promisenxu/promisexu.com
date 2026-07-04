@@ -32,7 +32,10 @@ const writing = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({
+    pattern: "**/*.{md,mdx}",
+    base: "./src/content/projects"
+  }),
   schema: z.object({
     name: z.string(),
     description: z.string(),

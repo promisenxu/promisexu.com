@@ -9,9 +9,10 @@ Refine all individual article pages through the shared article layout and global
 - Remove the article shell's narrow width cap so its canvas matches the writing archive.
 - Keep article prose capped at its existing readable line length.
 - Align the article category with the desktop `PROMISE XU` brand by removing the article-only top offset on desktop.
-- Reduce the article title's responsive font-size range.
+- Match the article title's responsive font-size range to archive row titles.
 - Add vertical margins between adjacent prose paragraphs. MDX source paragraphs remain separated by blank lines; presentation belongs in CSS.
 - Add an explicit `.image-description` class for MDX authors. It centers text and uses the same font size and color as `.meta`.
+- Underline links in article prose, co-author metadata, and the external-publication line without changing language-switch controls.
 - Render published and updated dates as English abbreviated dates such as `Aug 9, 2023`, while preserving ISO values in `<time datetime>`.
 
 ## MDX Usage

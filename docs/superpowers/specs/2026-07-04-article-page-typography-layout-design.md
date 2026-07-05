@@ -7,7 +7,7 @@ Refine all individual article pages through the shared article layout and global
 ## Design
 
 - Remove the article shell's narrow width cap so its canvas matches the writing archive.
-- Keep article prose capped at its existing readable line length.
+- Keep article prose and the article header capped at the same readable line length.
 - Align the article category with the desktop `PROMISE XU` brand by removing the article-only top offset on desktop.
 - Match the article title's responsive font-size range to archive row titles.
 - Add vertical margins between adjacent prose paragraphs. MDX source paragraphs remain separated by blank lines; presentation belongs in CSS.

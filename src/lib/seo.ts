@@ -69,6 +69,7 @@ export function articleJsonLd(input: {
   datePublished: Date;
   dateModified?: Date;
   lang: string;
+  coAuthors?: { name: string; link?: string }[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -79,10 +80,17 @@ export function articleJsonLd(input: {
     inLanguage: input.lang,
     datePublished: input.datePublished.toISOString(),
     dateModified: (input.dateModified ?? input.datePublished).toISOString(),
-    author: {
-      "@type": "Person",
-      name: site.author,
-      url: site.url
-    }
+    author: [
+      {
+        "@type": "Person",
+        name: site.author,
+        url: site.url
+      },
+      ...(input.coAuthors ?? []).map(({ name, link }) => ({
+        "@type": "Person",
+        name,
+        ...(link ? { url: link } : {})
+      }))
+    ]
   };
 }

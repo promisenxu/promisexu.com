@@ -5,7 +5,16 @@ export type WritingEntry = CollectionEntry<"writing">;
 export type ProjectEntry = CollectionEntry<"projects">;
 
 export async function getPublishedWritings() {
-  const writings = await getCollection("writing", ({ data }) => !data.draft);
+  const metadataFixtureIds = new Set([
+    "en/coauthors-metadata-fixture",
+    "zh/coauthors-metadata-fixture"
+  ]);
+  const writings = await getCollection("writing", ({ id, data }) =>
+    !data.draft || (
+      process.env.METADATA_TEST_FIXTURES === "1" &&
+      metadataFixtureIds.has(id)
+    )
+  );
   return writings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 

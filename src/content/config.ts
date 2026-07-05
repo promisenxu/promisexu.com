@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { writingCategories } from "@/lib/site";
+import { coAuthorSchema } from "@/lib/coAuthors.mjs";
 
 const writing = defineCollection({
   loader: glob({
@@ -23,6 +24,7 @@ const writing = defineCollection({
     tags: z.array(z.string()).default([]),
     slug: z.string(),
     translationKey: z.string().optional(),
+    coAuthors: z.array(coAuthorSchema).default([]),
     canonicalUrl: z.string().url().optional(),
     publishedAtExternalUrl: z.string().url().optional(),
     featureImage: z.string().optional(),

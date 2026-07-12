@@ -404,8 +404,12 @@ button {
 }
 
 .article-shell {
-  max-width: 74ch;
   padding: 24px 0 0;
+}
+
+.article-header,
+.prose {
+  max-width: 48rem;
 }
 
 .article-header {
@@ -424,7 +428,7 @@ button {
 
 .article-header h1 {
   margin: 0 0 16px;
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
   line-height: 1;
 }
 
@@ -571,9 +575,29 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
 }
 
 .prose {
-  max-width: 72ch;
   line-height: 1.75;
   font-size: 1.0625rem;
+}
+
+.prose p {
+  margin: 0 0 1.25em;
+}
+
+.prose img {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.prose .image-description {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.prose a,
+.co-authors a,
+.external a {
+  text-decoration: underline;
 }
 
 .prose h1,
@@ -642,6 +666,10 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
   }
 
   .page-header {
+    padding-top: 0;
+  }
+
+  .article-shell {
     padding-top: 0;
   }
 

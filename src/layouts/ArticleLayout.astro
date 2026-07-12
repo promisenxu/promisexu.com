@@ -38,6 +38,9 @@ const alternates = counterpart
   : [];
 const publishedDate = entry.data.date.toISOString().slice(0, 10);
 const updatedDate = entry.data.updated?.toISOString().slice(0, 10);
+const dateFormat = { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" } as const;
+const publishedDateLabel = entry.data.date.toLocaleDateString("en", dateFormat);
+const updatedDateLabel = entry.data.updated?.toLocaleDateString("en", dateFormat);
 const jsonLd = [
   articleJsonLd({
     title: entry.data.title,
@@ -70,20 +73,20 @@ const jsonLd = [
         <h1>{entry.data.title}</h1>
         {
           coAuthors.length > 0 && (
-            <p class="co-authors">
+            <p class="co-authors meta">
               {entry.data.lang === "zh" ? "合著者：" : "Co-Authored by: "}
               {coAuthors.map((author, index) => (
                 <>
                   {index > 0 && (entry.data.lang === "zh" ? "、" : ", ")}
-                  {author.link ? <a href={author.link}>{author.name}</a> : author.name}
+                  {author.link ? <a href={author.link} target="_blank">{author.name}</a> : author.name}
                 </>
               ))}
             </p>
           )
         }
         <p class="meta">
-          Published <time datetime={publishedDate}>{publishedDate}</time>
-          {updatedDate && <> &middot; Updated <time datetime={updatedDate}>{updatedDate}</time></>}
+          <time datetime={publishedDate}>{publishedDateLabel}</time>
+          {updatedDate && <> &middot; Updated <time datetime={updatedDate}>{updatedDateLabel}</time></>}
         </p>
       </header>
       <LanguageSwitch activeLanguage={entry.data.lang} enUrl={enUrl} zhUrl={zhUrl} />
@@ -92,7 +95,7 @@ const jsonLd = [
       </div>
       {
         entry.data.publishedAtExternalUrl && (
-          <p class="external">Originally published externally: <a href={entry.data.publishedAtExternalUrl}>source</a></p>
+          <p class="external">Also published <a href={entry.data.publishedAtExternalUrl} target="_blank">here</a>.</p>
         )
       }
     </article>

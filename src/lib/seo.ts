@@ -13,8 +13,13 @@ export function canonicalUrl(path: string) {
   return new URL(path, site.url).toString();
 }
 
+export function stripHtml(value: string) {
+  return value.replace(/<[^>]*>/g, "");
+}
+
 export function pageTitle(title: string) {
-  return title === site.title ? site.title : `${title} | ${site.title}`;
+  const plainTitle = stripHtml(title);
+  return plainTitle === site.title ? site.title : `${plainTitle} | ${site.title}`;
 }
 
 export function buildSeo(input: SeoInput) {
@@ -74,7 +79,7 @@ export function articleJsonLd(input: {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: input.title,
+    headline: stripHtml(input.title),
     description: input.description,
     url: input.url,
     inLanguage: input.lang,

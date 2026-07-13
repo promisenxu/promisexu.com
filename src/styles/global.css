@@ -585,13 +585,32 @@ html[data-content-view="zh"] .about__section[data-lang="zh"] {
 
 .prose img {
   display: block;
-  margin-bottom: 0.5rem;
+  margin: 1.25em 0;
+}
+
+.prose img + .image-description {
+  margin-top: -0.75rem;
 }
 
 .prose .image-description {
   color: var(--color-muted);
   font-size: 0.92rem;
   text-align: center;
+}
+
+.prose .article-footnote {
+  margin: 2.75rem 0 0;
+  padding: 0.85rem 1rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-border);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.prose .article-footnote p {
+  margin: 0;
 }
 
 .prose a,

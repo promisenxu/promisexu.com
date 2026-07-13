@@ -70,7 +70,7 @@ const jsonLd = [
     <article lang={entry.data.lang}>
       <header class="article-header">
         <p class="eyebrow">{entry.data.category}</p>
-        <h1>{entry.data.title}</h1>
+        <h1 set:html={entry.data.title}></h1>
         {
           coAuthors.length > 0 && (
             <p class="co-authors meta">

@@ -1,5 +1,6 @@
 ---
 import { getWritingUrl, type WritingEntry } from "@/lib/content";
+import { stripHtml } from "@/lib/seo";
 
 type Props = {
   entry: WritingEntry;
@@ -27,6 +28,7 @@ const dateLabel =
     ? entry.data.date.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" })
     : String(entry.data.date.getUTCFullYear());
 const showImage = variant !== "row" && entry.data.featureImage;
+const plainTitle = stripHtml(entry.data.title);
 ---
 
 <article
@@ -35,7 +37,7 @@ const showImage = variant !== "row" && entry.data.featureImage;
   data-category={entry.data.category}
 >
   {showImage && (
-    <a class="writing-row__media" href={getWritingUrl(entry)} aria-label={`Read ${entry.data.title}`}>
+    <a class="writing-row__media" href={getWritingUrl(entry)} aria-label={`Read ${plainTitle}`}>
       <img src={entry.data.featureImage} alt="" loading={variant === "lead" ? "eager" : "lazy"} />
     </a>
   )}
@@ -43,7 +45,7 @@ const showImage = variant !== "row" && entry.data.featureImage;
     {homepage ? (
       <>
         <div class="writing-row__title-line">
-          <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
+          <Heading><a href={getWritingUrl(entry)} set:html={entry.data.title}></a></Heading>
           <time class="writing-row__meta" datetime={date}>{dateLabel}</time>
         </div>
         {(showFeaturedTag && entry.data.featured || alternateUrl && alternateLabel) && (
@@ -60,7 +62,7 @@ const showImage = variant !== "row" && entry.data.featureImage;
       </>
     ) : (
       <>
-        <Heading><a href={getWritingUrl(entry)}>{entry.data.title}</a></Heading>
+        <Heading><a href={getWritingUrl(entry)} set:html={entry.data.title}></a></Heading>
         <p class="writing-row__meta">
           {showFeaturedTag && entry.data.featured && <><span class="tag">Featured</span> &middot; </>}
           {entry.data.category} &middot; <time datetime={date}>{date}</time>

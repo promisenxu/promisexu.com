@@ -94,8 +94,8 @@ const jsonLd = [
         <slot />
       </div>
       {
-        entry.data.publishedAtExternalUrl && (
-          <p class="external">Also published <a href={entry.data.publishedAtExternalUrl} target="_blank">here</a>.</p>
+        (entry.data.publishedAtExternalUrl || entry.data.canonicalUrl) && (
+          <p class="external">Also published <a href={entry.data.canonicalUrl || entry.data.publishedAtExternalUrl} target="_blank">here</a>.</p>
         )
       }
     </article>

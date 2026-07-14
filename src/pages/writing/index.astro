@@ -7,22 +7,17 @@ import { getPublishedWritings } from "@/lib/content";
 import { buildSeo, websiteJsonLd } from "@/lib/seo";
 
 const writings = await getPublishedWritings();
-const englishTranslationKeys = new Set(
-  writings
-    .filter((entry) => entry.data.lang === "en" && entry.data.translationKey)
-    .map((entry) => entry.data.translationKey)
-);
 const chineseByTranslationKey = new Map(
   writings
     .filter((entry) => entry.data.lang === "zh" && entry.data.translationKey)
     .map((entry) => [entry.data.translationKey, entry])
 );
-const allWritings = writings.filter(
-  (entry) =>
-    entry.data.lang === "en" ||
-    !entry.data.translationKey ||
-    !englishTranslationKeys.has(entry.data.translationKey)
+const englishByTranslationKey = new Map(
+  writings
+    .filter((entry) => entry.data.lang === "en" && entry.data.translationKey)
+    .map((entry) => [entry.data.translationKey, entry])
 );
+const allWritings = writings;
 const seo = buildSeo({
   title: "Writing",
   description: "All writing by Promise Xu across English and Chinese.",
@@ -55,6 +50,7 @@ const seo = buildSeo({
             variant="row"
             alternateUrl={chineseCounterpart ? `/zh/writing/${chineseCounterpart.data.slug}/` : undefined}
             alternateLabel={chineseCounterpart ? "Also in 中文 →" : undefined}
+            hideInAll={entry.data.lang === "zh" && Boolean(englishByTranslationKey.get(entry.data.translationKey ?? ""))}
           />
         );
       })}

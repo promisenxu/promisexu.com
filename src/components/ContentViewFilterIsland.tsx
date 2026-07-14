@@ -29,7 +29,9 @@ function saveView(view: ViewKey) {
 function applyView(view: ViewKey) {
   document.documentElement.dataset.contentView = view;
   document.querySelectorAll<HTMLElement>("[data-lang]").forEach((element) => {
-    element.hidden = view !== "all" && element.dataset.lang !== view;
+    element.hidden =
+      (view === "all" && element.dataset.allHidden === "true") ||
+      (view !== "all" && element.dataset.lang !== view);
   });
   const matchingContentCount = document.querySelectorAll(
     view === "all" ? "[data-lang]" : `[data-lang="${view}"]`

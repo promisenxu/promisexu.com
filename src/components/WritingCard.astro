@@ -9,6 +9,7 @@ type Props = {
   showFeaturedTag?: boolean;
   alternateUrl?: string;
   alternateLabel?: string;
+  hideInAll?: boolean;
   homepage?: boolean;
 };
 
@@ -19,6 +20,7 @@ const {
   showFeaturedTag = true,
   alternateUrl,
   alternateLabel,
+  hideInAll = false,
   homepage = false
 } = Astro.props;
 const Heading = headingLevel;
@@ -35,6 +37,8 @@ const plainTitle = stripHtml(entry.data.title);
   class:list={["writing-row", `writing-row--${variant}`, showImage && "writing-row--with-image"]}
   data-lang={entry.data.lang}
   data-category={entry.data.category}
+  data-all-hidden={hideInAll ? "true" : undefined}
+  hidden={hideInAll}
 >
   {showImage && (
     <a class="writing-row__media" href={getWritingUrl(entry)} aria-label={`Read ${plainTitle}`}>
